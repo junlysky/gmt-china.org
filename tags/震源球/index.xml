@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>震源球 on GMT 中文社区</title>
+    <link>http://gmt-china.org/tags/%E9%9C%87%E6%BA%90%E7%90%83/</link>
+    <description>Recent content in 震源球 on GMT 中文社区</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cmn-Hans</language>
+    <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
+    <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
+    <lastBuildDate>Mon, 03 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://gmt-china.org/tags/%E9%9C%87%E6%BA%90%E7%90%83/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>震源机制分布图</title>
+      <link>http://gmt-china.org/example/beachball-distribution/</link>
+      <pubDate>Mon, 03 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/beachball-distribution/</guid>
+      <description>&lt;p&gt;本示例展示了如何绘制震源球的分布图。震级的大小由震源球的大小来表征，震源的深度则由震源球的压缩象限的颜色表示。&lt;/p&gt;
+
+
+
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+#   绘制震源机制分布图，震级控制震源球大小，深度控制震源球颜色
+
+J=Q104/15c
+R=102.5/105.5/30.5/32.5
+PS=beachball.ps
+CPT=meca.cpt
+
+# 生成CPT文件，为每个深度段设置不同的颜色
+cat &amp;lt;&amp;lt; EOF &amp;gt; $CPT
+ 0   0-1-1   20   0-1-1
+20  60-1-1   40  60-1-1
+40 120-1-1   60 120-1-1
+60 240-1-1  100 240-1-1
+EOF
+
+gmt psbasemap -J$J -R$R -B1 -BWSen -P -K &amp;gt; $PS
+gmt pscoast -J -R -Da -Ia/0.05,black -K -O &amp;gt;&amp;gt; $PS
+gmt psmeca -J -R -CP5p -Sa1.3c -Z$CPT -K -O &amp;gt;&amp;gt; $PS &amp;lt;&amp;lt; EOF
+# 经度 纬度 深度(km) strike dip rake 震级 newX newY ID
+104.3300  31.90    39.8  32.00 64.00   85.00  7.0 0        0       A
+104       31.52    27.1  22.00 53.00   57.00  6.0 0        0       B
+103.6700  31.1300   6.4  86.00 32.00  -65.00  8.0 0        0       C
+103.900   31.3400  43.6 194.00 84.00  179.00  4.9 104.180  30.8400 D
+103.7200  31.4400  67.3  73.00 84.00 -162.00  4.9 103.120  31.6400 E
+104.1200  31.7800  12.7 186.00 68.00  107.00  4.7 103.830  32.2600 F
+104.2300  31.6100  62.0  86.00 63.00  -51.00  4.7 104.960  31.6900 G
+EOF
+
+gmt psscale -J -R -C$CPT -DjBL&amp;#43;w5c/0.5c&amp;#43;ml&amp;#43;o0.8c/0.4c -Bx&amp;#43;lDepth -By&amp;#43;lkm -L -S -K -O &amp;gt;&amp;gt; $PS
+gmt psxy -J -R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.* $CPT
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;beachball.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;震源球分布图&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

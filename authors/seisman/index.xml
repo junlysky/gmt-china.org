@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>seisman on GMT 中文社区</title>
+    <link>http://gmt-china.org/authors/seisman/</link>
+    <description>Recent content in seisman on GMT 中文社区</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cmn-Hans</language>
+    <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
+    <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
+    <lastBuildDate>Wed, 05 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://gmt-china.org/authors/seisman/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>生成多页PS、PDF文件</title>
+      <link>http://gmt-china.org/blog/multipage-ps/</link>
+      <pubDate>Wed, 05 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/multipage-ps/</guid>
+      <description>&lt;p&gt;在用 GMT 绘图时，通常是将一张图保存在一个 PS 文件中。而在用脚本批量绘制很多张相似的图片时，就会生成很多 PS 文件。为了区分这些 PS 文件，就需要给这些文件一个相对复杂的命名方式，以保证自己可以根据文件名判断这张图对应的是什么参数。&lt;/p&gt;
+
+&lt;p&gt;能不能将这些 PS 文件合并到一个文件中呢？&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>绘制地球内部主要界面</title>
+      <link>http://gmt-china.org/example/plot-earth-discontinuities/</link>
+      <pubDate>Wed, 31 Aug 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/plot-earth-discontinuities/</guid>
+      <description>&lt;p&gt;在利用地震波研究地球深部结构时，经常需要绘制震相在深度剖面下的射线路径，同时也需要绘制地球内部的主要界面。&lt;/p&gt;
+
+&lt;p&gt;震相的射线路径可以用 &lt;a href=&#34;http://www.seis.sc.edu/taup/&#34; target=&#34;_blank&#34;&gt;TauP&lt;/a&gt; 提供的 &lt;code&gt;taup_path&lt;/code&gt; 命令计算得到，然后在极坐标系 &lt;code&gt;-JP&lt;/code&gt; 中绘制。难点在于如何绘制几个主要界面。&lt;/p&gt;
+
+&lt;p&gt;本示例将展示如何绘制震中距为30度的 PcP 和 PKiKP 震相的射线路径，同时绘制地球内的410、660界面以及 CMB 和 ICB。最终的绘图效果如下：&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;earth-discontinuities.png&#34; width=&#34;300px&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;震相射线路径&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;绘图脚本如下：&lt;/p&gt;
+
+
+
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+J=Pa10c/285
+R=-10/38/0/6371
+PS=earth-discontinuities.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 1p
+
+# 绘制地表
+gmt psbasemap -J$J -R$R -Byg6371 -Bs -K &amp;gt; $PS
+# 绘制 410 界面
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;5961 -Bs -K -O &amp;gt;&amp;gt; $PS
+# 绘制 660 界面
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;5711 -Bs -K -O &amp;gt;&amp;gt; $PS
+# 绘制 CMB
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;3480 -Bs -K -O &amp;gt;&amp;gt; $PS
+# 绘制 ICB
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;1221 -Bs -K -O &amp;gt;&amp;gt; $PS
+
+# 计算并绘制震相的射线路径
+taup_path -mod prem -ph PcP -h 300 -deg 30 -o PcP.raypath
+taup_path -mod prem -ph PKiKP -h 300 -deg 30 -o PKiKP.raypath
+gmt psxy PcP.raypath.gmt -W1p,blue -J$J -R$R -K -O &amp;gt;&amp;gt; $PS
+gmt psxy PKiKP.raypath.gmt -W1p,red -J$J -R$R -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制震源和台站位置
+gmt psxy -J$J -R$R -S -Gblack -N -K -O &amp;gt;&amp;gt; $PS &amp;lt;&amp;lt; EOF
+0 6071 0.4c a
+30 6471 0.4c i
+EOF
+
+# 添加标注
+gmt pstext -J$J -R$R -F&amp;#43;f11p&amp;#43;a -N -K -O &amp;gt;&amp;gt; $PS &amp;lt;&amp;lt; EOF
+-6 6170 -70 Surface
+-6 3280 -70 CMB
+-3 1020 -70 ICB
+16 4100 -90 @;blue;PcP@;;
+37 1600 -90 @;red;PKiKP@;;
+EOF
+
+gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.* *.raypath.gmt
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;p&gt;脚本中使用了五个 &lt;code&gt;psbasemap&lt;/code&gt; 命令分别绘制五个界面。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;第一个 &lt;code&gt;psbasemap&lt;/code&gt; 用于绘制地表， &lt;code&gt;-Byg6371&lt;/code&gt; 表明要在 Y 方向（极坐标下即 R 方向）以6371为间隔绘制网格线，由于地球半径是6371，所以理论上会在R=0和 R=6371 两处绘制网格线。 &lt;code&gt;-Bs&lt;/code&gt; 的作用是只绘制 R=6371 处的网格线，且只绘制网格线而不绘制刻度；&lt;/li&gt;
+&lt;li&gt;第二个 &lt;code&gt;pabasemap&lt;/code&gt; 用于绘制410界面，其与前一命令基本相同，唯一的区别是 &lt;code&gt;-Byg6371+5961&lt;/code&gt; 中多了 &lt;code&gt;+5961&lt;/code&gt;，其作用是定义网格线的起算点，即此时将在 R=5961（即410界面）处绘制网格线。&lt;/li&gt;
+&lt;li&gt;其他同理&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT 5.2.1编译过程中NaN报错的解决办法</title>
+      <link>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</link>
+      <pubDate>Sat, 04 Jun 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</guid>
+      <description>&lt;p&gt;在 Ubunut 16.04 或者其他比较新的 Linux 发行版下编译 GMT 5.2.1 的源码时，会出现如下错误而导致安装失败&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;non-floating-point argument in call to function &#39;__builtin_isnan&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决办法是，找到源码 &lt;code&gt;gmt-5.2.1/src/xyz2grd.c&lt;/code&gt;，将第752行的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT_is_dnan (GMT-&amp;gt;common.d.active[GMT_IN])) ? sprintf (e_value, &amp;quot;NaN&amp;quot;) : sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT-&amp;gt;common.d.active[GMT_IN]) ? sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]) : sprintf (e_value, &amp;quot;NaN&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再编译即可。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT中文社区正式成立</title>
+      <link>http://gmt-china.org/blog/gmt-china-community-founded/</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/gmt-china-community-founded/</guid>
+      <description>
+
+&lt;p&gt;GMT的中文用户们，大家好，我是 &lt;a href=&#34;https://seisman.info&#34; target=&#34;_blank&#34;&gt;seisman&lt;/a&gt; 。&lt;/p&gt;
+
+&lt;p&gt;GMT中文社区于今日正式成立了！&lt;/p&gt;
+
+&lt;p&gt;GMT中文社区是针对GMT中文用户而成立的社区。整个社区目前包含了三个主要部分：社区主站、GMT中文文档和问答社区。&lt;/p&gt;
+
+&lt;p&gt;在社区的第一篇博文中，我想谈谈建立这个社区的原因及一些想法。&lt;/p&gt;
+
+&lt;h2 id=&#34;gmt中文文档&#34;&gt;GMT中文文档&lt;/h2&gt;
+
+&lt;p&gt;GMT中文文档的项目始于2014年，到2016年初已经初步成形。中文文档包括三个部分：参考手册、模块手册和示例集。&lt;/p&gt;
+
+&lt;p&gt;在2014年，网络上能够找到的几本GMT中文文档，大多基于GMT4甚至GMT3。这几本文档存在一些明显的缺陷：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;排版质量一般，大多是在Word里写好然后转换成PDF的&lt;/li&gt;
+&lt;li&gt;缺乏维护，几乎都是写好发布之后就没有再更新&lt;/li&gt;
+&lt;li&gt;不完整，很多有价值的内容都没有被包含在文档中&lt;/li&gt;
+&lt;li&gt;不严谨，很多文档声称是基于GMT4，但实际上某些命令却在使用GMT3的语法&lt;/li&gt;
+&lt;li&gt;无法适配最新版的GMT，某些时候对于新用户而言是一种障碍&lt;/li&gt;
+&lt;li&gt;重复劳动：不同的作者，花费了大量的时间和精力，翻译整理出了几份相似的文档，这其中很多工作都是在重复劳动&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;因而，我于2014年开始写针对GMT5的中文文档。新的GMT中文文档具有如下特点：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;开源：源代码用rST语言写成，并在GitHub上开源&lt;/li&gt;
+&lt;li&gt;高质量排版：文档有网页版和PDF版，保证高质量的排版（目前尚存在不足，见第5条）&lt;/li&gt;
+&lt;li&gt;完整性：尽可能覆盖GMT的方方面面，成为一个完整的参考手册（没有最完整，只有更完整，见第5条）&lt;/li&gt;
+&lt;li&gt;协同合作：依托强大的GitHub和Git，使得多人合作共同编辑同一份文档变得很简单&lt;/li&gt;
+&lt;li&gt;持续维护：不仅适配GMT的新版本，而且不断修正文档中存在的错误&lt;/li&gt;
+&lt;li&gt;严谨性：尽可能保证所有命令均通过GMT最新版本的测试&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;经过两年努力，文档的整体结构已经大体完成。我希望文档今后能够持续更新，不断完善，不管是接下来的GMT 5.2.2、5.3.0还是未来的GMT 6.0甚至7.0，都能随着GMT版本的升级而不断更新，但这些已非我一人之力所能完成。众人拾柴火焰高。我希望有更多的GMT中文用户加入到文档维护的队伍中来，这便是我建立GMT中文社区的目的。&lt;/p&gt;
+
+&lt;h2 id=&#34;问答社区&#34;&gt;问答社区&lt;/h2&gt;
+
+&lt;p&gt;GMT问答社区的前身是地学GMT学习群（群号：218905582）。QQ群属于即时通讯，通常在群中提的问题都可以快速得到答案，但与此同时，QQ群存在如下缺点：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;即时性导致的随意性：由于QQ本质上是一种聊天工具，导致很多人在提问时太过随意。遇到问题时，不加思索在QQ群中提问，却不去思考如何提问，如何在提问时提供完整有效的信息，如何在提问时解释清楚自己想要实现什么和遇到了什么问题。QQ群中的很多提问都是如此，需要回答者多次向提问者发问才能搞清楚提问者的问题。这不仅浪费了回答者的时间，也不利于提问者能力的提高。&lt;/li&gt;
+&lt;li&gt;多话题引起的错乱：经常遇到几个人同时提问，几个话题互相交叉，使得搞不清到底谁在回复谁&lt;/li&gt;
+&lt;li&gt;问答记录无法长期保存：只有用户接收到的消息会被保存到本地磁盘中，而对于新加入的成员而言，则无法看到历史聊天记录&lt;/li&gt;
+&lt;li&gt;问答记录无法搜索：仅当聊天记录保存在本地磁盘中才能被搜索，无法通过搜索引擎检索&lt;/li&gt;
+&lt;li&gt;问答记录无法被非群成员搜索：有大量的GMT用户未加入群中，这些非成员则无法获取这些优质的问答资源&lt;/li&gt;
+&lt;li&gt;Linux用户提问不便：Linux下几乎没有可用的QQ客户端，导致众多Linux下的GMT用户只能通过手机打字在群中提问，且只能通过手机拍照的方式上传屏幕截图&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;鉴于QQ群的以上几个缺点，萌生了建立问答社区的想法。希望这样一个问答社区可以解决QQ群存在的问题。问答社区将努力保持高信噪比，专注于GMT的问与答。&lt;/p&gt;
+
+&lt;h2 id=&#34;gmt中文社区&#34;&gt;GMT中文社区&lt;/h2&gt;
+
+&lt;p&gt;最初是计划把中文文档以及问答社区都放在我自己的博客域名之下的，但这样做一方面不够正式，另一方面也会影响到我对于自己博客的整体定位。最终经过一番考量之后，决定单独购买域名，建立GMT中文社区，然后将文档以及问答社区作为GMT中文社区的子项目。&lt;/p&gt;
+
+&lt;p&gt;现在，整个GMT中文社区的基本框架已经搭建完毕。我希望它能顺利运行下去，也欢迎更多的人提意见和建议，加入到整个社区的维护中来。&lt;/p&gt;
+
+&lt;p&gt;最后，我要感谢王亮在整个社区的建立过程中和我交流与讨论，并给出了很多有意义的建议。我还要感谢各种开源服务，我的工作是建立在它们之上的。我也希望华语地学界有更多的人了解开源、认同开源、热爱开源并最终参与到开源中来。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

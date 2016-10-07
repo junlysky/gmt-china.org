@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GMT 中文社区</title>
+    <link>http://gmt-china.org/</link>
+    <description>Recent content on GMT 中文社区</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cmn-Hans</language>
+    <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
+    <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
+    <lastBuildDate>Wed, 05 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://gmt-china.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>生成多页PS、PDF文件</title>
+      <link>http://gmt-china.org/blog/multipage-ps/</link>
+      <pubDate>Wed, 05 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/multipage-ps/</guid>
+      <description>&lt;p&gt;在用 GMT 绘图时，通常是将一张图保存在一个 PS 文件中。而在用脚本批量绘制很多张相似的图片时，就会生成很多 PS 文件。为了区分这些 PS 文件，就需要给这些文件一个相对复杂的命名方式，以保证自己可以根据文件名判断这张图对应的是什么参数。&lt;/p&gt;
+
+&lt;p&gt;能不能将这些 PS 文件合并到一个文件中呢？&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>震源机制分布图</title>
+      <link>http://gmt-china.org/example/beachball-distribution/</link>
+      <pubDate>Mon, 03 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/beachball-distribution/</guid>
+      <description>&lt;p&gt;本示例展示了如何绘制震源球的分布图。震级的大小由震源球的大小来表征，震源的深度则由震源球的压缩象限的颜色表示。&lt;/p&gt;
+
+
+
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+#   绘制震源机制分布图，震级控制震源球大小，深度控制震源球颜色
+
+J=Q104/15c
+R=102.5/105.5/30.5/32.5
+PS=beachball.ps
+CPT=meca.cpt
+
+# 生成CPT文件，为每个深度段设置不同的颜色
+cat &amp;lt;&amp;lt; EOF &amp;gt; $CPT
+ 0   0-1-1   20   0-1-1
+20  60-1-1   40  60-1-1
+40 120-1-1   60 120-1-1
+60 240-1-1  100 240-1-1
+EOF
+
+gmt psbasemap -J$J -R$R -B1 -BWSen -P -K &amp;gt; $PS
+gmt pscoast -J -R -Da -Ia/0.05,black -K -O &amp;gt;&amp;gt; $PS
+gmt psmeca -J -R -CP5p -Sa1.3c -Z$CPT -K -O &amp;gt;&amp;gt; $PS &amp;lt;&amp;lt; EOF
+# 经度 纬度 深度(km) strike dip rake 震级 newX newY ID
+104.3300  31.90    39.8  32.00 64.00   85.00  7.0 0        0       A
+104       31.52    27.1  22.00 53.00   57.00  6.0 0        0       B
+103.6700  31.1300   6.4  86.00 32.00  -65.00  8.0 0        0       C
+103.900   31.3400  43.6 194.00 84.00  179.00  4.9 104.180  30.8400 D
+103.7200  31.4400  67.3  73.00 84.00 -162.00  4.9 103.120  31.6400 E
+104.1200  31.7800  12.7 186.00 68.00  107.00  4.7 103.830  32.2600 F
+104.2300  31.6100  62.0  86.00 63.00  -51.00  4.7 104.960  31.6900 G
+EOF
+
+gmt psscale -J -R -C$CPT -DjBL&amp;#43;w5c/0.5c&amp;#43;ml&amp;#43;o0.8c/0.4c -Bx&amp;#43;lDepth -By&amp;#43;lkm -L -S -K -O &amp;gt;&amp;gt; $PS
+gmt psxy -J -R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.* $CPT
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;beachball.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;震源球分布图&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT中文社区第二次线下聚餐</title>
+      <link>http://gmt-china.org/blog/GUD-20160921/</link>
+      <pubDate>Tue, 27 Sep 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/GUD-20160921/</guid>
+      <description>&lt;p&gt;2016年9月21日，借GMT中文社区首次线下培训契机，在社区创始人田冬冬博士和GMT群管理员刘珠妹老师的号召下，GMT中文社区在湖北武汉组织了第二次线下聚餐（GMT User Dinner，简称GUD），四位群管理员和来自河北、福建、安徽、甘肃、湖北等地的共16位社区成员参加了此次聚会。&lt;/p&gt;
+
+&lt;p&gt;聚会伊始，杨萍带来了兰州似火的热情，为大家奉上美味糖果牦牛肉，大红色的包装纸被单斌老师认成喜糖。红色代表着喜庆，象征着今天大家有缘聚在一起，也是一种皆大欢喜的团圆。随后大家自我介绍了自己的群内ID和真实姓名，社区成员对彼此的学习情况、工作经历、研究领域等有了初步认识。稍后，社区成员商讨了GMT社区网站的美观设计、腾讯网盘容量已扩容性问题、相同问题反复提问和解答等。针对上述内容，田博士希望将来可以重新设计一个漂亮的社区logo，建议把GMT社区内容重新移植回QQ群文件中，并希冀整理群问题的工作可以尽快开展，因此再次号召更多志愿者加入到GMT社区的管理和维护工作。稍后，大家谈到了亘古不变的话题“虎哥究竟是男是女”，众人仁者见仁智者见智，各持己见，瞬间聚会气氛达到了高潮，可惜的是虎哥本人并不在现场！&lt;/p&gt;
+
+&lt;p&gt;随后田博士在师弟和美女的陪同下，参观了位于东湖之滨、珞珈山下、拥有百年历史的全国重点高校—国立武汉大学。走出武大校园后，随后乘船游览了国家5A级旅游景区—东湖。此次聚会活动虎哥没有参加，但虎哥热情依在，虎哥看完聚会照片，和大家调侃了“桂花山药”美味的一盘菜，并押宝5毛，最后在虎哥强烈邀约下，筹备了第三次线下聚餐活动。&lt;/p&gt;
+
+&lt;p&gt;GMT社区线下聚会在轻松愉快的氛围中结束，此次聚会谈论话题广泛，但又不失主题性，为GMT社区成员之间深入交流提供了一个很好的平台，促进了GMT社区的稳健成长。遥祝GMT中文社区像东湖一样，可以永葆原创魅力，又像武汉大学一样，亦可承载一路的历史、厚重、辉煌！ “相见时难别亦难”，美好的聚会终有一别，这次聚会虽然短暂，但短暂的聚会让我们会加倍的去珍惜，希望下一次聚会再团聚！&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/images/GUD-20160921.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;参会人员从左往右依次为：章婷（湖北省地震局）、刘珠妹（中国地震局地震研究所）、王丽霞（中国地震局兰州地震研究所）、杨萍（中国地震局兰州地震研究所）、郑海刚（安徽省地震局）、谢小晋（中国地质大学-武汉）、贾媛（山东省地震局）、杨锦玲（福建省地震局）、田冬冬（中国科学技术大学）、肖晓（武汉大学）、赵志远（河北省地震局）、刘旭耀（中国地质大学-武汉）、罗娜（河北省地震局）、邓明莉（中国科学院测量与地球物理研究所）、刘成利（中国地质大学-武汉）、单斌（中国地质大学-武汉）&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+</description>
+    </item>
+    
+    <item>
+      <title>GMT中文社区首次线下培训</title>
+      <link>http://gmt-china.org/blog/GMTCon-20160921/</link>
+      <pubDate>Sun, 25 Sep 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/GMTCon-20160921/</guid>
+      <description>&lt;p&gt;2016年9月21至22日，GMT中文社区协同中国地震局地震研究所和中国地震局地壳形变学科技术管理组举行了首次GMT线下培训活动。&lt;/p&gt;
+
+&lt;p&gt;此次培训邀请了田冬冬（中国科学技术大学在读博士，社区 ID：知名不具）、单斌（中国地质大学特任教授，社区 ID：Bins）和刘珠妹（中国地震局地震研究所，社区 ID：忆尤）三位老师在湖北省地震局21楼报告厅做了《GMT入门、基础及进阶》、《GMT应用与科技论文写作》、《地学常见GMT图件模板讲解》专题培训讲座，来自全国地震系统的学员和慕名人士共计120余人参加了此次培训。&lt;/p&gt;
+
+&lt;p&gt;此次培训考虑到培训人员GMT操作能力差异巨大，为了尽可能地照顾到所有培训人员的需求，经过一个月精心调研准备，从内容、思路、绘图技巧等方面综合考虑，确定了此次GMT专题讲座的最终主题。21日上午田冬冬博士首先介绍了GMT的概念、开发团队、GMT的版本等，随后对GMT基础知识、配置文件、常用命令进行了详细讲解，最后总结了GMT学习方法及学习资源，对GMT中文社区创建初衷、社区功能、未来发展等做了阐述，并呼吁各位仁人志士加入到GMT社区的设计和日常维护中。单斌教授对GMT做了简单介绍，随后深入浅出的介绍了GMT常用选项、常用命令、shell脚本编写等，并对GMT在科技论文中的应用做了具体实例讲解，提供了科技论文写作技巧。最后具神指出了GMT5和GMT4的语法命令区别，对学习兴趣、专业优势等和大家做了深入分享交流。22日下午刘珠妹老师对地学常见GMT图件模板进行了讲解，刘老师首先讲授了怎样读懂脚本的使用平台、脚本版本、脚本结构等内容，然后讲授了编写绘图脚本的6个基本步骤，介绍了自由空气异常图、布格异常图等几种常用绘图模板，讨论了中文支持、脚本批量运行、二次开发等GMT绘图技巧，刘老师强调在学习过程中，应对照样例修改参数，具体问题具体分析，带着问题去找答案。&lt;/p&gt;
+
+&lt;p&gt;此次GMT专题培训授课内容全面、专题性比较强、课程安排比较合理，通过此次培训，推广了GMT的使用范围，提高了GMT软件在日常工作中实际操作应用能力，促进了GMT群和GMT中文社区的未来更快更好发展，加强了GMT群成员的交流，此次培训取得了预期效果，期待下一次培训的召开。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://gmt-china.org/images/GMTCon20160921-1.jpg&#34; alt=&#34;田冬冬&#34; /&gt;
+&lt;img src=&#34;http://gmt-china.org/images/GMTCon20160921-2.jpg&#34; alt=&#34;单斌&#34; /&gt;
+&lt;img src=&#34;http://gmt-china.org/images/GMTCon20160921-3.jpg&#34; alt=&#34;刘珠妹&#34; /&gt;
+&lt;img src=&#34;http://gmt-china.org/images/GMTCon20160921-4.jpg&#34; alt=&#34;现场互动&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT中文社区首次线下聚餐</title>
+      <link>http://gmt-china.org/blog/GUD-20160628/</link>
+      <pubDate>Sat, 24 Sep 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/GUD-20160628/</guid>
+      <description>&lt;p&gt;2016年6月28日，GMT中文社区在北京举行了首次GMT用户线下聚餐（GMT User Dinner，简称GUD）。&lt;/p&gt;
+
+&lt;p&gt;6月27日至29日，很多GMT用户参加了在中国科学院地质与地球物理研究所举办的“首届中国区域地震学参考模型交流会”。社区创始人田冬冬提议借此机会，举行社区的第一次线下聚会。&lt;/p&gt;
+
+&lt;p&gt;6月28日晚，参与聚会的GMT社区用户相约前往北京北辰西路的芝麻花餐厅聚会。在聚会上，社区成员相互认识，对彼此的研究领域、GMT 学习和社区的发展进行了交流和讨论。&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/images/GUD-20160628.jpg&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;左至右依次为：李佳威（中国地震局地球物理研究所）、王志伟（中国地震局地质研究所）、田冬冬（中国科学技术大学）、王亮（桂林理工大学）、李君（中国地震局第二监测中心&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+</description>
+    </item>
+    
+    <item>
+      <title>绘制地球内部主要界面</title>
+      <link>http://gmt-china.org/example/plot-earth-discontinuities/</link>
+      <pubDate>Wed, 31 Aug 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/plot-earth-discontinuities/</guid>
+      <description>&lt;p&gt;在利用地震波研究地球深部结构时，经常需要绘制震相在深度剖面下的射线路径，同时也需要绘制地球内部的主要界面。&lt;/p&gt;
+
+&lt;p&gt;震相的射线路径可以用 &lt;a href=&#34;http://www.seis.sc.edu/taup/&#34; target=&#34;_blank&#34;&gt;TauP&lt;/a&gt; 提供的 &lt;code&gt;taup_path&lt;/code&gt; 命令计算得到，然后在极坐标系 &lt;code&gt;-JP&lt;/code&gt; 中绘制。难点在于如何绘制几个主要界面。&lt;/p&gt;
+
+&lt;p&gt;本示例将展示如何绘制震中距为30度的 PcP 和 PKiKP 震相的射线路径，同时绘制地球内的410、660界面以及 CMB 和 ICB。最终的绘图效果如下：&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;earth-discontinuities.png&#34; width=&#34;300px&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;震相射线路径&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;绘图脚本如下：&lt;/p&gt;
+
+
+
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+J=Pa10c/285
+R=-10/38/0/6371
+PS=earth-discontinuities.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 1p
+
+# 绘制地表
+gmt psbasemap -J$J -R$R -Byg6371 -Bs -K &amp;gt; $PS
+# 绘制 410 界面
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;5961 -Bs -K -O &amp;gt;&amp;gt; $PS
+# 绘制 660 界面
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;5711 -Bs -K -O &amp;gt;&amp;gt; $PS
+# 绘制 CMB
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;3480 -Bs -K -O &amp;gt;&amp;gt; $PS
+# 绘制 ICB
+gmt psbasemap -J$J -R$R -Byg6371&amp;#43;1221 -Bs -K -O &amp;gt;&amp;gt; $PS
+
+# 计算并绘制震相的射线路径
+taup_path -mod prem -ph PcP -h 300 -deg 30 -o PcP.raypath
+taup_path -mod prem -ph PKiKP -h 300 -deg 30 -o PKiKP.raypath
+gmt psxy PcP.raypath.gmt -W1p,blue -J$J -R$R -K -O &amp;gt;&amp;gt; $PS
+gmt psxy PKiKP.raypath.gmt -W1p,red -J$J -R$R -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制震源和台站位置
+gmt psxy -J$J -R$R -S -Gblack -N -K -O &amp;gt;&amp;gt; $PS &amp;lt;&amp;lt; EOF
+0 6071 0.4c a
+30 6471 0.4c i
+EOF
+
+# 添加标注
+gmt pstext -J$J -R$R -F&amp;#43;f11p&amp;#43;a -N -K -O &amp;gt;&amp;gt; $PS &amp;lt;&amp;lt; EOF
+-6 6170 -70 Surface
+-6 3280 -70 CMB
+-3 1020 -70 ICB
+16 4100 -90 @;blue;PcP@;;
+37 1600 -90 @;red;PKiKP@;;
+EOF
+
+gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.* *.raypath.gmt
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;p&gt;脚本中使用了五个 &lt;code&gt;psbasemap&lt;/code&gt; 命令分别绘制五个界面。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;第一个 &lt;code&gt;psbasemap&lt;/code&gt; 用于绘制地表， &lt;code&gt;-Byg6371&lt;/code&gt; 表明要在 Y 方向（极坐标下即 R 方向）以6371为间隔绘制网格线，由于地球半径是6371，所以理论上会在R=0和 R=6371 两处绘制网格线。 &lt;code&gt;-Bs&lt;/code&gt; 的作用是只绘制 R=6371 处的网格线，且只绘制网格线而不绘制刻度；&lt;/li&gt;
+&lt;li&gt;第二个 &lt;code&gt;pabasemap&lt;/code&gt; 用于绘制410界面，其与前一命令基本相同，唯一的区别是 &lt;code&gt;-Byg6371+5961&lt;/code&gt; 中多了 &lt;code&gt;+5961&lt;/code&gt;，其作用是定义网格线的起算点，即此时将在 R=5961（即410界面）处绘制网格线。&lt;/li&gt;
+&lt;li&gt;其他同理&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT国内镜像正式建成</title>
+      <link>http://gmt-china.org/blog/mirror-site-founded/</link>
+      <pubDate>Fri, 08 Jul 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/mirror-site-founded/</guid>
+      <description>&lt;p&gt;经过本社区积极联系，GMT中国区镜像站点已于2016年7月6日正式建立，并已加入GMT官网镜像列表中。&lt;/p&gt;
+
+&lt;p&gt;该镜像站点依托中国科学技术大学LUG服务器，是 GMT 在亚洲地区第二个镜像站，也是中国第一个镜像站。&lt;/p&gt;
+
+&lt;p&gt;镜像地址：&lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/&#34; target=&#34;_blank&#34;&gt;http://mirrors.ustc.edu.cn/gmt/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT 5.2.1编译过程中NaN报错的解决办法</title>
+      <link>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</link>
+      <pubDate>Sat, 04 Jun 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</guid>
+      <description>&lt;p&gt;在 Ubunut 16.04 或者其他比较新的 Linux 发行版下编译 GMT 5.2.1 的源码时，会出现如下错误而导致安装失败&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;non-floating-point argument in call to function &#39;__builtin_isnan&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决办法是，找到源码 &lt;code&gt;gmt-5.2.1/src/xyz2grd.c&lt;/code&gt;，将第752行的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT_is_dnan (GMT-&amp;gt;common.d.active[GMT_IN])) ? sprintf (e_value, &amp;quot;NaN&amp;quot;) : sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT-&amp;gt;common.d.active[GMT_IN]) ? sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]) : sprintf (e_value, &amp;quot;NaN&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再编译即可。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT中文社区正式成立</title>
+      <link>http://gmt-china.org/blog/gmt-china-community-founded/</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/gmt-china-community-founded/</guid>
+      <description>
+
+&lt;p&gt;GMT的中文用户们，大家好，我是 &lt;a href=&#34;https://seisman.info&#34; target=&#34;_blank&#34;&gt;seisman&lt;/a&gt; 。&lt;/p&gt;
+
+&lt;p&gt;GMT中文社区于今日正式成立了！&lt;/p&gt;
+
+&lt;p&gt;GMT中文社区是针对GMT中文用户而成立的社区。整个社区目前包含了三个主要部分：社区主站、GMT中文文档和问答社区。&lt;/p&gt;
+
+&lt;p&gt;在社区的第一篇博文中，我想谈谈建立这个社区的原因及一些想法。&lt;/p&gt;
+
+&lt;h2 id=&#34;gmt中文文档&#34;&gt;GMT中文文档&lt;/h2&gt;
+
+&lt;p&gt;GMT中文文档的项目始于2014年，到2016年初已经初步成形。中文文档包括三个部分：参考手册、模块手册和示例集。&lt;/p&gt;
+
+&lt;p&gt;在2014年，网络上能够找到的几本GMT中文文档，大多基于GMT4甚至GMT3。这几本文档存在一些明显的缺陷：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;排版质量一般，大多是在Word里写好然后转换成PDF的&lt;/li&gt;
+&lt;li&gt;缺乏维护，几乎都是写好发布之后就没有再更新&lt;/li&gt;
+&lt;li&gt;不完整，很多有价值的内容都没有被包含在文档中&lt;/li&gt;
+&lt;li&gt;不严谨，很多文档声称是基于GMT4，但实际上某些命令却在使用GMT3的语法&lt;/li&gt;
+&lt;li&gt;无法适配最新版的GMT，某些时候对于新用户而言是一种障碍&lt;/li&gt;
+&lt;li&gt;重复劳动：不同的作者，花费了大量的时间和精力，翻译整理出了几份相似的文档，这其中很多工作都是在重复劳动&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;因而，我于2014年开始写针对GMT5的中文文档。新的GMT中文文档具有如下特点：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;开源：源代码用rST语言写成，并在GitHub上开源&lt;/li&gt;
+&lt;li&gt;高质量排版：文档有网页版和PDF版，保证高质量的排版（目前尚存在不足，见第5条）&lt;/li&gt;
+&lt;li&gt;完整性：尽可能覆盖GMT的方方面面，成为一个完整的参考手册（没有最完整，只有更完整，见第5条）&lt;/li&gt;
+&lt;li&gt;协同合作：依托强大的GitHub和Git，使得多人合作共同编辑同一份文档变得很简单&lt;/li&gt;
+&lt;li&gt;持续维护：不仅适配GMT的新版本，而且不断修正文档中存在的错误&lt;/li&gt;
+&lt;li&gt;严谨性：尽可能保证所有命令均通过GMT最新版本的测试&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;经过两年努力，文档的整体结构已经大体完成。我希望文档今后能够持续更新，不断完善，不管是接下来的GMT 5.2.2、5.3.0还是未来的GMT 6.0甚至7.0，都能随着GMT版本的升级而不断更新，但这些已非我一人之力所能完成。众人拾柴火焰高。我希望有更多的GMT中文用户加入到文档维护的队伍中来，这便是我建立GMT中文社区的目的。&lt;/p&gt;
+
+&lt;h2 id=&#34;问答社区&#34;&gt;问答社区&lt;/h2&gt;
+
+&lt;p&gt;GMT问答社区的前身是地学GMT学习群（群号：218905582）。QQ群属于即时通讯，通常在群中提的问题都可以快速得到答案，但与此同时，QQ群存在如下缺点：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;即时性导致的随意性：由于QQ本质上是一种聊天工具，导致很多人在提问时太过随意。遇到问题时，不加思索在QQ群中提问，却不去思考如何提问，如何在提问时提供完整有效的信息，如何在提问时解释清楚自己想要实现什么和遇到了什么问题。QQ群中的很多提问都是如此，需要回答者多次向提问者发问才能搞清楚提问者的问题。这不仅浪费了回答者的时间，也不利于提问者能力的提高。&lt;/li&gt;
+&lt;li&gt;多话题引起的错乱：经常遇到几个人同时提问，几个话题互相交叉，使得搞不清到底谁在回复谁&lt;/li&gt;
+&lt;li&gt;问答记录无法长期保存：只有用户接收到的消息会被保存到本地磁盘中，而对于新加入的成员而言，则无法看到历史聊天记录&lt;/li&gt;
+&lt;li&gt;问答记录无法搜索：仅当聊天记录保存在本地磁盘中才能被搜索，无法通过搜索引擎检索&lt;/li&gt;
+&lt;li&gt;问答记录无法被非群成员搜索：有大量的GMT用户未加入群中，这些非成员则无法获取这些优质的问答资源&lt;/li&gt;
+&lt;li&gt;Linux用户提问不便：Linux下几乎没有可用的QQ客户端，导致众多Linux下的GMT用户只能通过手机打字在群中提问，且只能通过手机拍照的方式上传屏幕截图&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;鉴于QQ群的以上几个缺点，萌生了建立问答社区的想法。希望这样一个问答社区可以解决QQ群存在的问题。问答社区将努力保持高信噪比，专注于GMT的问与答。&lt;/p&gt;
+
+&lt;h2 id=&#34;gmt中文社区&#34;&gt;GMT中文社区&lt;/h2&gt;
+
+&lt;p&gt;最初是计划把中文文档以及问答社区都放在我自己的博客域名之下的，但这样做一方面不够正式，另一方面也会影响到我对于自己博客的整体定位。最终经过一番考量之后，决定单独购买域名，建立GMT中文社区，然后将文档以及问答社区作为GMT中文社区的子项目。&lt;/p&gt;
+
+&lt;p&gt;现在，整个GMT中文社区的基本框架已经搭建完毕。我希望它能顺利运行下去，也欢迎更多的人提意见和建议，加入到整个社区的维护中来。&lt;/p&gt;
+
+&lt;p&gt;最后，我要感谢王亮在整个社区的建立过程中和我交流与讨论，并给出了很多有意义的建议。我还要感谢各种开源服务，我的工作是建立在它们之上的。我也希望华语地学界有更多的人了解开源、认同开源、热爱开源并最终参与到开源中来。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>下载</title>
+      <link>http://gmt-china.org/download/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/download/</guid>
+      <description>
+
+&lt;h2 id=&#34;软件下载&#34;&gt;软件下载&lt;/h2&gt;
+
+&lt;h3 id=&#34;windows用户&#34;&gt;Windows用户&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;gmt-5.2.1-win32： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gmt-5.2.1-win64： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ghostscript 32 bit： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w32.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ghostscript 64 bit： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w64.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gsview： &lt;a href=&#34;http://www.gsview.com/downloads/gsview_setup_6.0.exe&#34; target=&#34;_blank&#34;&gt;gsview官网&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;linux用户&#34;&gt;Linux用户&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;gmt-5.2.1-src： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gshhg-gmt-2.3.5： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gshhg-gmt-2.3.5.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gshhg-gmt-2.3.5.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;dcw-gmt-1.1.2： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;mac用户&#34;&gt;Mac用户&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;gmt-5.2.1-darwin-x86_64： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;文档下载&#34;&gt;文档下载&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GMT参考手册5.2.1版： &lt;a href=&#34;https://github.com/gmt-china/GMT_docs/releases/download/v5.2.1/GMT_docs-5.2.1.pdf&#34; target=&#34;_blank&#34;&gt;PDF版&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_docs/releases/download/v5.2.1/GMT_docs-5.2.1-HTML.zip&#34; target=&#34;_blank&#34;&gt;HTML版&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GMT模块手册5.2.1版： &lt;a href=&#34;https://github.com/gmt-china/GMT_modules/releases/download/v5.2.1/GMT_modules-5.2.1.pdf&#34; target=&#34;_blank&#34;&gt;PDF版&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_modules/releases/download/v5.2.1/GMT_modules-5.2.1-HTML.zip&#34; target=&#34;_blank&#34;&gt;HTML版&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;数据下载&#34;&gt;数据下载&lt;/h2&gt;
+
+&lt;h3 id=&#34;地形起伏数据&#34;&gt;地形起伏数据&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;数据源&lt;/th&gt;
+&lt;th&gt;空间分辨率&lt;/th&gt;
+&lt;th&gt;覆盖范围&lt;/th&gt;
+&lt;th&gt;陆地/海洋&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;http://www.ngdc.noaa.gov/mgg/global/&#34; target=&#34;_blank&#34;&gt;etopo1&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;1弧分&lt;/td&gt;
+&lt;td&gt;全球&lt;/td&gt;
+&lt;td&gt;陆地+海洋&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;http://www.bodc.ac.uk/data/online_delivery/gebco/&#34; target=&#34;_blank&#34;&gt;GEBCO&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;1弧分/30弧秒&lt;/td&gt;
+&lt;td&gt;全球&lt;/td&gt;
+&lt;td&gt;陆地+海洋&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;ftp://edcftp.cr.usgs.gov/data/gtopo30/global/&#34; target=&#34;_blank&#34;&gt;GTOPO30&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;30弧秒&lt;/td&gt;
+&lt;td&gt;全球&lt;/td&gt;
+&lt;td&gt;陆地&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;http://topex.ucsd.edu/WWW_html/srtm30_plus.html&#34; target=&#34;_blank&#34;&gt;SRTM30_PLUS&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;30弧秒(约1km)&lt;/td&gt;
+&lt;td&gt;纬度[-81,81]&lt;/td&gt;
+&lt;td&gt;陆地+海洋&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;http://topex.ucsd.edu/WWW_html/mar_topo.html&#34; target=&#34;_blank&#34;&gt;SRTM15_PLUS&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;15弧秒(约500m)&lt;/td&gt;
+&lt;td&gt;纬度[-81,81]&lt;/td&gt;
+&lt;td&gt;陆地+海洋&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;http://srtm.csi.cgiar.org/SELECTION/inputCoord.asp&#34; target=&#34;_blank&#34;&gt;SRTM&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;3弧秒(约90m)&lt;/td&gt;
+&lt;td&gt;纬度[-60,60]&lt;/td&gt;
+&lt;td&gt;陆地&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ASTER GDEM&lt;/td&gt;
+&lt;td&gt;1弧秒(约30m)&lt;/td&gt;
+&lt;td&gt;纬度[-83,83]&lt;/td&gt;
+&lt;td&gt;陆地&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;已过时版本&#34;&gt;已过时版本&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;gshhg-gmt-2.3.4： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/legacy/gshhg-gmt-2.3.4.tar.g&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt; &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/legacy/gshhg-gmt-2.3.4.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>http://gmt-china.org/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/about/</guid>
+      <description>
+
+&lt;p&gt;GMT中文社区是由 &lt;a href=&#34;https://seisman.info&#34; target=&#34;_blank&#34;&gt;seisman&lt;/a&gt; 创建的面向GMT中文用户的非盈利社区。&lt;/p&gt;
+
+&lt;p&gt;社区的目标：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;为GMT中文用户提供优质的GMT学习资源&lt;/li&gt;
+&lt;li&gt;组织社区成员协同维护GMT中文文档&lt;/li&gt;
+&lt;li&gt;专注于GMT，保持小众的特色&lt;/li&gt;
+&lt;li&gt;开展线下培训与聚餐等活动&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;费用&#34;&gt;费用&lt;/h2&gt;
+
+&lt;p&gt;维持整个社区正常运行所需的费用包括域名费用、主机费用以及流量费用。&lt;/p&gt;
+
+&lt;p&gt;目前所有的费用由 &lt;a href=&#34;https://seisman.info&#34; target=&#34;_blank&#34;&gt;seisman&lt;/a&gt; 承担。以后，会根据费用的数额决定是否定期向社区成员发起众筹。鉴于社区的非盈利性质，若决定发起众筹，会公开社区的支出明细（收据或发票），并严格限定众筹的金额。&lt;/p&gt;
+
+&lt;h2 id=&#34;联系方式&#34;&gt;联系方式&lt;/h2&gt;
+
+&lt;p&gt;社区相关问题请联系： &lt;a href=&#34;mailto:admin@gmt-china.org&#34; target=&#34;_blank&#34;&gt;admin@gmt-china.org&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;本邮箱不负责回答任何GMT使用方面的相关问题。&lt;/p&gt;
+
+&lt;h2 id=&#34;致谢&#34;&gt;致谢&lt;/h2&gt;
+
+&lt;p&gt;整个社区的建立和维护使用了众多免费的项目，在此一并致谢：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gmt-china&#34; target=&#34;_blank&#34;&gt;GitHub&lt;/a&gt;：整个社区的源码以及网页都托管在GitHub上&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.dnspod.cn&#34; target=&#34;_blank&#34;&gt;DNSPod&lt;/a&gt;：提供DNS解析&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gohugo.io/&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt;: 社区主页所使用的静态博客引擎&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.sphinx-doc.org&#34; target=&#34;_blank&#34;&gt;Sphinx&lt;/a&gt;：社区中文文档的生成工具&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/snide/sphinx_rtd_theme&#34; target=&#34;_blank&#34;&gt;sphinx_rtd_theme&lt;/a&gt;：GMT中文参考手册所使用的主题&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://pythonhosted.org/cloud_sptheme/&#34; target=&#34;_blank&#34;&gt;The Cloud Sphinx Theme&lt;/a&gt;：GMT模块手册所使用的主题&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/&#34; target=&#34;_blank&#34;&gt;Travis CI&lt;/a&gt;：社区源码自动测试和部署&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://exmail.qq.com/&#34; target=&#34;_blank&#34;&gt;腾讯企业邮&lt;/a&gt;：为社区提供免费的域名邮箱&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>图库</title>
+      <link>http://gmt-china.org/gallery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/gallery/</guid>
+      <description>&lt;p&gt;欢迎投稿。投稿者请将代码、数据及成图发送至 &lt;a href=&#34;mailto:admin@gmt-china.org&#34; target=&#34;_blank&#34;&gt;admin@gmt-china.org&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>文档</title>
+      <link>http://gmt-china.org/docs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/docs/</guid>
+      <description>&lt;p&gt;GMT中文社区目前维护的GMT中文文档有两个，分别托管在不同的子域名下。&lt;/p&gt;
+
+&lt;p&gt;对于GMT新用户，建议先阅读参考手册，然后根据需要阅读模块手册。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;GMT参考手册&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;主页：&lt;a href=&#34;http://docs.gmt-china.org&#34; target=&#34;_blank&#34;&gt;http://docs.gmt-china.org&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;说明：该手册详细介绍了GMT的背景和基础知识，包含了大量示例命令和图片，是GMT新手的推荐入门读物，同时也可以作为日常绘图时的参考手册。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;GMT模块手册&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;主页：&lt;a href=&#34;http://modules.gmt-china.org&#34; target=&#34;_blank&#34;&gt;http://modules.gmt-china.org&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;说明：该手册介绍了GMT的众多模块的语法和用法，包含大量示例和图片，以帮助用户理解模块的用法。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>首页</title>
+      <link>http://gmt-china.org/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/</guid>
+      <description>&lt;p&gt;GMT，全称Generic Mapping Tools，是一种开源地图绘制工具，广泛应用于全球地学界。&lt;/p&gt;
+
+&lt;p&gt;GMT中文社区是为GMT中文用户而建立的小众社区。首次访问社区主页的用户，可以先看看 &lt;a href=&#34;http://gmt-china.org/about/&#34;&gt;关于&lt;/a&gt; 页面中社区的相关信息，也可以看看社区的 &lt;a href=&#34;http://gmt-china.org/blog/&#34;&gt;博客&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;社区内包含了大量的GMT相关资源：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://gmt-china.org/download/&#34;&gt;下载&lt;/a&gt; 页面中可以下载最新的GMT安装包、文档以及相关数据&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://gmt-china.org/docs/&#34;&gt;文档&lt;/a&gt; 页面中包含了社区翻译和维护的中文文档，包括参考手册、模块手册&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

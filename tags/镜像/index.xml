@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>镜像 on GMT 中文社区</title>
+    <link>http://gmt-china.org/tags/%E9%95%9C%E5%83%8F/</link>
+    <description>Recent content in 镜像 on GMT 中文社区</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cmn-Hans</language>
+    <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
+    <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
+    <lastBuildDate>Fri, 08 Jul 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://gmt-china.org/tags/%E9%95%9C%E5%83%8F/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GMT国内镜像正式建成</title>
+      <link>http://gmt-china.org/blog/mirror-site-founded/</link>
+      <pubDate>Fri, 08 Jul 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/mirror-site-founded/</guid>
+      <description>&lt;p&gt;经过本社区积极联系，GMT中国区镜像站点已于2016年7月6日正式建立，并已加入GMT官网镜像列表中。&lt;/p&gt;
+
+&lt;p&gt;该镜像站点依托中国科学技术大学LUG服务器，是 GMT 在亚洲地区第二个镜像站，也是中国第一个镜像站。&lt;/p&gt;
+
+&lt;p&gt;镜像地址：&lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/&#34; target=&#34;_blank&#34;&gt;http://mirrors.ustc.edu.cn/gmt/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

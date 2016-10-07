@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GMT技巧 on GMT 中文社区</title>
+    <link>http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/</link>
+    <description>Recent content in GMT技巧 on GMT 中文社区</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cmn-Hans</language>
+    <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
+    <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
+    <lastBuildDate>Wed, 05 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>生成多页PS、PDF文件</title>
+      <link>http://gmt-china.org/blog/multipage-ps/</link>
+      <pubDate>Wed, 05 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/multipage-ps/</guid>
+      <description>&lt;p&gt;在用 GMT 绘图时，通常是将一张图保存在一个 PS 文件中。而在用脚本批量绘制很多张相似的图片时，就会生成很多 PS 文件。为了区分这些 PS 文件，就需要给这些文件一个相对复杂的命名方式，以保证自己可以根据文件名判断这张图对应的是什么参数。&lt;/p&gt;
+
+&lt;p&gt;能不能将这些 PS 文件合并到一个文件中呢？&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GMT 5.2.1编译过程中NaN报错的解决办法</title>
+      <link>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</link>
+      <pubDate>Sat, 04 Jun 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</guid>
+      <description>&lt;p&gt;在 Ubunut 16.04 或者其他比较新的 Linux 发行版下编译 GMT 5.2.1 的源码时，会出现如下错误而导致安装失败&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;non-floating-point argument in call to function &#39;__builtin_isnan&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决办法是，找到源码 &lt;code&gt;gmt-5.2.1/src/xyz2grd.c&lt;/code&gt;，将第752行的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT_is_dnan (GMT-&amp;gt;common.d.active[GMT_IN])) ? sprintf (e_value, &amp;quot;NaN&amp;quot;) : sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT-&amp;gt;common.d.active[GMT_IN]) ? sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]) : sprintf (e_value, &amp;quot;NaN&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再编译即可。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
