@@ -369,29 +369,54 @@ rm gmt.* *.raypath.gmt
 
 &lt;h2 id=&#34;软件下载&#34;&gt;软件下载&lt;/h2&gt;
 
-&lt;h3 id=&#34;windows用户&#34;&gt;Windows用户&lt;/h3&gt;
+&lt;div&gt;
+&lt;ul class=&#34;nav nav-tabs&#34; role=&#34;tablist&#34;&gt;
+&lt;li role=&#34;presentation&#34;  class=&#34;active&#34; &gt;
+    &lt;a href=&#34;#windows&#34; aria-controls=&#34;clone&#34; role=&#34;tab&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Window用户&lt;/a&gt;
+&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;gmt-5.2.1-win32： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;gmt-5.2.1-win64： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;ghostscript 32 bit： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w32.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;ghostscript 64 bit： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w64.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;gsview： &lt;a href=&#34;http://www.gsview.com/downloads/gsview_setup_6.0.exe&#34; target=&#34;_blank&#34;&gt;gsview官网&lt;/a&gt;&lt;/li&gt;
+&lt;li role=&#34;presentation&#34; &gt;
+    &lt;a href=&#34;#linux&#34; aria-controls=&#34;clone&#34; role=&#34;tab&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Linux用户&lt;/a&gt;
+&lt;/li&gt;
+
+&lt;li role=&#34;presentation&#34; &gt;
+    &lt;a href=&#34;#mac&#34; aria-controls=&#34;clone&#34; role=&#34;tab&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Mac用户&lt;/a&gt;
+&lt;/li&gt;
+
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;linux用户&#34;&gt;Linux用户&lt;/h3&gt;
-
+&lt;div class=&#34;tab-content&#34;&gt;
+&lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane  active &#34; id=&#34;windows&#34;&gt;
 &lt;ul&gt;
-&lt;li&gt;gmt-5.2.1-src： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;gshhg-gmt-2.3.5： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gshhg-gmt-2.3.5.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gshhg-gmt-2.3.5.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;dcw-gmt-1.1.2： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.2.1-win32&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.2.1-win64&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ghostscript 32 bit&lt;/strong&gt;： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w32.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ghostscript 64 bit&lt;/strong&gt;： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w64.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gsview&lt;/strong&gt;： &lt;a href=&#34;http://www.gsview.com/downloads/gsview_setup_6.0.exe&#34; target=&#34;_blank&#34;&gt;gsview官网&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;mac用户&#34;&gt;Mac用户&lt;/h3&gt;
+&lt;/div&gt;
 
+
+&lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane &#34; id=&#34;linux&#34;&gt;
 &lt;ul&gt;
-&lt;li&gt;gmt-5.2.1-darwin-x86_64： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.2.1-src&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gshhg-gmt-2.3.6&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gshhg-gmt-2.3.6.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gshhg-gmt-2.3.6.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dcw-gmt-1.1.2&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;/div&gt;
+
+
+&lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane &#34; id=&#34;mac&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.2.1-darwin-x86_64&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;hr /&gt;
 
@@ -469,12 +494,6 @@ rm gmt.* *.raypath.gmt
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
-&lt;h2 id=&#34;已过时版本&#34;&gt;已过时版本&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;gshhg-gmt-2.3.4： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/legacy/gshhg-gmt-2.3.4.tar.g&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt; &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/legacy/gshhg-gmt-2.3.4.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
