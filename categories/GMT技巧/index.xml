@@ -8,20 +8,8 @@
     <language>zh-cmn-Hans</language>
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
-    <lastBuildDate>Wed, 05 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jun 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>生成多页PS、PDF文件</title>
-      <link>http://gmt-china.org/blog/multipage-ps/</link>
-      <pubDate>Wed, 05 Oct 2016 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/blog/multipage-ps/</guid>
-      <description>&lt;p&gt;在用 GMT 绘图时，通常是将一张图保存在一个 PS 文件中。而在用脚本批量绘制很多张相似的图片时，就会生成很多 PS 文件。为了区分这些 PS 文件，就需要给这些文件一个相对复杂的命名方式，以保证自己可以根据文件名判断这张图对应的是什么参数。&lt;/p&gt;
-
-&lt;p&gt;能不能将这些 PS 文件合并到一个文件中呢？&lt;/p&gt;
-</description>
-    </item>
     
     <item>
       <title>GMT 5.2.1编译过程中NaN报错的解决办法</title>
