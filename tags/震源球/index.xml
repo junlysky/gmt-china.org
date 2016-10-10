@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>震源球 on GMT 中文社区</title>
-    <link>http://gmt-china.org/tags/%E9%9C%87%E6%BA%90%E7%90%83/</link>
-    <description>Recent content in 震源球 on GMT 中文社区</description>
+    <title>GMT 中文社区</title>
+    <link>http://gmt-china.org/tags/%E9%9C%87%E6%BA%90%E7%90%83/index.xml</link>
+    <description>Recent content on GMT 中文社区</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cmn-Hans</language>
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
-    <lastBuildDate>Mon, 03 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
     <atom:link href="http://gmt-china.org/tags/%E9%9C%87%E6%BA%90%E7%90%83/index.xml" rel="self" type="application/rss+xml" />
     
     <item>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GMT技巧 on GMT 中文社区</title>
-    <link>http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/</link>
-    <description>Recent content in GMT技巧 on GMT 中文社区</description>
+    <title>GMT 中文社区</title>
+    <link>http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/index.xml</link>
+    <description>Recent content on GMT 中文社区</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cmn-Hans</language>
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
-    <lastBuildDate>Sat, 04 Jun 2016 00:00:00 +0000</lastBuildDate>
+    <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
     <atom:link href="http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
