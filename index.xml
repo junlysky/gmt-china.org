@@ -505,6 +505,10 @@ rm gmt.* *.raypath.gmt
 &lt;li&gt;开展线下培训与聚餐等活动&lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;section id=&#34;google-map&#34;&gt;
+{{ partial &#34;google_map&#34; .}}
+&lt;/section&gt;
+
 &lt;h2 id=&#34;费用&#34;&gt;费用&lt;/h2&gt;
 
 &lt;p&gt;维持整个社区正常运行所需的费用包括域名费用、主机费用以及流量费用。&lt;/p&gt;
