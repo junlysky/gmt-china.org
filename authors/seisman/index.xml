@@ -13,10 +13,10 @@
     
     <item>
       <title>绘制地球内部主要界面</title>
-      <link>http://gmt-china.org/example/plot-earth-discontinuities/</link>
+      <link>http://gmt-china.org/example/ex002/</link>
       <pubDate>Wed, 31 Aug 2016 00:00:00 +0000</pubDate>
       <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/example/plot-earth-discontinuities/</guid>
+      <guid>http://gmt-china.org/example/ex002/</guid>
       <description>&lt;p&gt;在利用地震波研究地球深部结构时，经常需要绘制震相在深度剖面下的射线路径，同时也需要绘制地球内部的主要界面。&lt;/p&gt;
 
 &lt;p&gt;震相的射线路径可以用 &lt;a href=&#34;http://www.seis.sc.edu/taup/&#34; target=&#34;_blank&#34;&gt;TauP&lt;/a&gt; 提供的 &lt;code&gt;taup_path&lt;/code&gt; 命令计算得到，然后在极坐标系 &lt;code&gt;-JP&lt;/code&gt; 中绘制。难点在于如何绘制几个主要界面。&lt;/p&gt;

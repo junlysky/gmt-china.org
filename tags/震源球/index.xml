@@ -13,10 +13,10 @@
     
     <item>
       <title>震源机制分布图</title>
-      <link>http://gmt-china.org/example/beachball-distribution/</link>
+      <link>http://gmt-china.org/example/ex001/</link>
       <pubDate>Mon, 03 Oct 2016 00:00:00 +0000</pubDate>
       <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/example/beachball-distribution/</guid>
+      <guid>http://gmt-china.org/example/ex001/</guid>
       <description>&lt;p&gt;本示例展示了如何绘制震源球的分布图。震级的大小由震源球的大小来表征，震源的深度则由震源球的压缩象限的颜色表示。&lt;/p&gt;
 
 

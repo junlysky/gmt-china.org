@@ -8,7 +8,7 @@
     <meta name="generator" content="Hugo 0.17" />
     <meta name="author" content="GMT 中文社区">
     <meta name="description" content="面向 GMT 中文用户的小众社区">
-    <title>绘制地球内部主要界面 | GMT 中文社区</title>
+    <title>震源机制分布图 | GMT 中文社区</title>
 
     
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -96,7 +96,7 @@
                         <div class="article-inner">
                             <header class="article-header">
     <h1 class="article-title" itemprop="name">
-	<a href="http://gmt-china.org/example/plot-earth-discontinuities/" class="permalink">绘制地球内部主要界面</a>
+	<a href="http://gmt-china.org/example/ex001/" class="permalink">震源机制分布图</a>
     </h1>
 
     
@@ -120,7 +120,7 @@
         <div class="article-category">
 		<i class="fa fa-tags"></i>
             
-            <a class="article-category-link" href="http://gmt-china.org/tags/%E5%B0%84%E7%BA%BF">射线</a>
+            <a class="article-category-link" href="http://gmt-china.org/tags/%E9%9C%87%E6%BA%90%E7%90%83">震源球</a>
             
             
         </div>
@@ -133,7 +133,7 @@
         <div class="article-category">
             <i class="fa fa-user"></i>
             
-            <a class="article-category-link" href="http://gmt-china.org/authors/seisman">seisman</a>
+            <a class="article-category-link" href="http://gmt-china.org/authors/%E7%8E%8B%E4%BA%AE">王亮</a>
             
             
         </div>
@@ -141,7 +141,7 @@
         
 
         
-        <time class="article-date" datetime="2016-08-31 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016年08月31日</time>
+        <time class="article-date" datetime="2016-10-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016年10月03日</time>
         
     </div>
     
@@ -150,83 +150,60 @@
                             <div class="article-body" itemprop="articleBody">
                                 
 
-                                <p>在利用地震波研究地球深部结构时，经常需要绘制震相在深度剖面下的射线路径，同时也需要绘制地球内部的主要界面。</p>
-
-<p>震相的射线路径可以用 <a href="http://www.seis.sc.edu/taup/" target="_blank">TauP</a> 提供的 <code>taup_path</code> 命令计算得到，然后在极坐标系 <code>-JP</code> 中绘制。难点在于如何绘制几个主要界面。</p>
-
-<p>本示例将展示如何绘制震中距为30度的 PcP 和 PKiKP 震相的射线路径，同时绘制地球内的410、660界面以及 CMB 和 ICB。最终的绘图效果如下：</p>
-
-
-<figure >
-    
-        <img src="earth-discontinuities.png" width="300px" />
-    
-    
-    <figcaption>
-        <h4>震相射线路径</h4>
-        
-    </figcaption>
-    
-</figure>
-
-
-<p>绘图脚本如下：</p>
+                                <p>本示例展示了如何绘制震源球的分布图。震级的大小由震源球的大小来表征，震源的深度则由震源球的压缩象限的颜色表示。</p>
 
 
 
 
 
 <pre><code class="language-bash line-numbers">#!/bin/bash
-J=Pa10c/285
-R=-10/38/0/6371
-PS=earth-discontinuities.ps
+#   绘制震源机制分布图，震级控制震源球大小，深度控制震源球颜色
 
-gmt set MAP_GRID_PEN_PRIMARY 1p
+J=Q104/15c
+R=102.5/105.5/30.5/32.5
+PS=beachball.ps
+CPT=meca.cpt
 
-# 绘制地表
-gmt psbasemap -J$J -R$R -Byg6371 -Bs -K &gt; $PS
-# 绘制 410 界面
-gmt psbasemap -J$J -R$R -Byg6371&#43;5961 -Bs -K -O &gt;&gt; $PS
-# 绘制 660 界面
-gmt psbasemap -J$J -R$R -Byg6371&#43;5711 -Bs -K -O &gt;&gt; $PS
-# 绘制 CMB
-gmt psbasemap -J$J -R$R -Byg6371&#43;3480 -Bs -K -O &gt;&gt; $PS
-# 绘制 ICB
-gmt psbasemap -J$J -R$R -Byg6371&#43;1221 -Bs -K -O &gt;&gt; $PS
-
-# 计算并绘制震相的射线路径
-taup_path -mod prem -ph PcP -h 300 -deg 30 -o PcP.raypath
-taup_path -mod prem -ph PKiKP -h 300 -deg 30 -o PKiKP.raypath
-gmt psxy PcP.raypath.gmt -W1p,blue -J$J -R$R -K -O &gt;&gt; $PS
-gmt psxy PKiKP.raypath.gmt -W1p,red -J$J -R$R -K -O &gt;&gt; $PS
-
-# 绘制震源和台站位置
-gmt psxy -J$J -R$R -S -Gblack -N -K -O &gt;&gt; $PS &lt;&lt; EOF
-0 6071 0.4c a
-30 6471 0.4c i
+# 生成CPT文件，为每个深度段设置不同的颜色
+cat &lt;&lt; EOF &gt; $CPT
+ 0   0-1-1   20   0-1-1
+20  60-1-1   40  60-1-1
+40 120-1-1   60 120-1-1
+60 240-1-1  100 240-1-1
 EOF
 
-# 添加标注
-gmt pstext -J$J -R$R -F&#43;f11p&#43;a -N -K -O &gt;&gt; $PS &lt;&lt; EOF
--6 6170 -70 Surface
--6 3280 -70 CMB
--3 1020 -70 ICB
-16 4100 -90 @;blue;PcP@;;
-37 1600 -90 @;red;PKiKP@;;
+gmt psbasemap -J$J -R$R -B1 -BWSen -P -K &gt; $PS
+gmt pscoast -J -R -Da -Ia/0.05,black -K -O &gt;&gt; $PS
+gmt psmeca -J -R -CP5p -Sa1.3c -Z$CPT -K -O &gt;&gt; $PS &lt;&lt; EOF
+# 经度 纬度 深度(km) strike dip rake 震级 newX newY ID
+104.3300  31.90    39.8  32.00 64.00   85.00  7.0 0        0       A
+104       31.52    27.1  22.00 53.00   57.00  6.0 0        0       B
+103.6700  31.1300   6.4  86.00 32.00  -65.00  8.0 0        0       C
+103.900   31.3400  43.6 194.00 84.00  179.00  4.9 104.180  30.8400 D
+103.7200  31.4400  67.3  73.00 84.00 -162.00  4.9 103.120  31.6400 E
+104.1200  31.7800  12.7 186.00 68.00  107.00  4.7 103.830  32.2600 F
+104.2300  31.6100  62.0  86.00 63.00  -51.00  4.7 104.960  31.6900 G
 EOF
 
-gmt psxy -J$J -R$R -T -O &gt;&gt; $PS
-rm gmt.* *.raypath.gmt
+gmt psscale -J -R -C$CPT -DjBL&#43;w5c/0.5c&#43;ml&#43;o0.8c/0.4c -Bx&#43;lDepth -By&#43;lkm -L -S -K -O &gt;&gt; $PS
+gmt psxy -J -R -T -O &gt;&gt; $PS
+rm gmt.* $CPT
 </code></pre>
 
 
-<p>脚本中使用了五个 <code>psbasemap</code> 命令分别绘制五个界面。</p>
-
-<ul>
-<li>第一个 <code>psbasemap</code> 用于绘制地表， <code>-Byg6371</code> 表明要在 Y 方向（极坐标下即 R 方向）以6371为间隔绘制网格线，由于地球半径是6371，所以理论上会在R=0和 R=6371 两处绘制网格线。 <code>-Bs</code> 的作用是只绘制 R=6371 处的网格线，且只绘制网格线而不绘制刻度；</li>
-<li>第二个 <code>pabasemap</code> 用于绘制410界面，其与前一命令基本相同，唯一的区别是 <code>-Byg6371+5961</code> 中多了 <code>+5961</code>，其作用是定义网格线的起算点，即此时将在 R=5961（即410界面）处绘制网格线。</li>
-<li>其他同理</li>
-</ul>
+<p>
+<figure >
+    
+        <img src="beachball.png" />
+    
+    
+    <figcaption>
+        <h4>震源球分布图</h4>
+        
+    </figcaption>
+    
+</figure>
+</p>
 
                             </div>
                             <footer class="article-footer">
@@ -237,14 +214,16 @@ rm gmt.* *.raypath.gmt
 <nav>
     <ul class="pager">
         
-
-        
-        <li class="next">
-            <a href="http://gmt-china.org/example/beachball-distribution/">
-                <strong class="article-nav-caption">下一篇</strong>
-                <div class="article-nav-title">震源机制分布图</div>
+        <li class="previous">
+            <a href="http://gmt-china.org/example/ex002/">
+                <strong class="article-nav-caption">
+                上一篇
+                </strong>
+                <div class="article-nav-title">绘制地球内部主要界面</div>
             </a>
         </li>
+        
+
         
     </ul>
 </nav>
