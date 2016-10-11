@@ -609,25 +609,54 @@ function TitleControl(controlDiv, map) {
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>admin@gmt-china.org (GMT 中文社区)</author>
       <guid>http://gmt-china.org/docs/</guid>
-      <description>&lt;p&gt;GMT中文社区目前维护的GMT中文文档有两个，分别托管在不同的子域名下。&lt;/p&gt;
-
-&lt;p&gt;对于GMT新用户，建议先阅读参考手册，然后根据需要阅读模块手册。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;GMT参考手册&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;主页：&lt;a href=&#34;http://docs.gmt-china.org&#34; target=&#34;_blank&#34;&gt;http://docs.gmt-china.org&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;说明：该手册详细介绍了GMT的背景和基础知识，包含了大量示例命令和图片，是GMT新手的推荐入门读物，同时也可以作为日常绘图时的参考手册。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;GMT模块手册&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;主页：&lt;a href=&#34;http://modules.gmt-china.org&#34; target=&#34;_blank&#34;&gt;http://modules.gmt-china.org&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;说明：该手册介绍了GMT的众多模块的语法和用法，包含大量示例和图片，以帮助用户理解模块的用法。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
+      <description>&lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;            
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-book&#34;&gt;&lt;/i&gt; GMT参考手册&lt;/h3&gt;
+            &lt;p&gt;参考手册详细介绍了GMT的基础和进阶知识，是GMT新手的推荐入门读物，同时也可以在日常绘图时作为参考。&lt;/p&gt;
+            &lt;div class=&#34;text-center&#34;&gt;
+            &lt;a href=&#34;http://docs.gmt-china.org&#34; class=&#34;btn btn-primary&#34; role=&#34;button&#34;&gt;主页&lt;/a&gt;
+            &lt;a href=&#34;https://github.com/gmt-china/GMT_docs&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;源码&lt;/a&gt;
+            &lt;a href=&#34;http://gmt-china.org/download/&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;下载&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-book&#34;&gt;&lt;/i&gt; GMT模块手册&lt;/h3&gt;
+            &lt;p&gt;模块手册详细介绍了GMT模块的语法和用法，并辅以示例和效果图，以帮助用户掌握模块的使用方法。&lt;/p&gt;
+            &lt;div class=&#34;text-center&#34;&gt;
+            &lt;a href=&#34;http://modules.gmt-china.org&#34; class=&#34;btn btn-primary&#34; role=&#34;button&#34;&gt;主页&lt;/a&gt;
+            &lt;a href=&#34;https://github.com/gmt-china/GMT_modules&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;源码&lt;/a&gt;
+            &lt;a href=&#34;http://gmt-china.org/download/&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;下载&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;clearfix visible-sm&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-image&#34;&gt;&lt;/i&gt; GMT 图库&lt;/h3&gt;
+            &lt;p&gt;图库收集了众多使用GMT绘制的图片，每张图片均提供了相应的脚本及数据，读者可以学习并修改这些示例。&lt;/p&gt;
+            &lt;div class=&#34;text-center&#34;&gt;
+            &lt;a href=&#34;http://gmt-china.org/gallery/&#34; class=&#34;btn btn-primary&#34; role=&#34;button&#34;&gt;主页&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-question-circle&#34;&gt;&lt;/i&gt; GMT FAQ&lt;/h3&gt;
+            &lt;p&gt;FAQ 中收集整理了GMT使用过程中的常见问题及其解答。&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 </description>
     </item>
     
