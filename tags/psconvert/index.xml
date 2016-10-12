@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GMT 中文社区</title>
-    <link>http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/index.xml</link>
+    <link>http://gmt-china.org/tags/psconvert/index.xml</link>
     <description>Recent content on GMT 中文社区</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cmn-Hans</language>
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
     <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
-    <atom:link href="http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://gmt-china.org/tags/psconvert/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>生成多页PS/PDF文件</title>
@@ -67,31 +67,6 @@ done
 &lt;div class=&#34;notices warning&#34; &gt;&lt;p&gt;将多页PS文件转换为多页PDF文件时，&lt;code&gt;psconvert&lt;/code&gt; 的 &lt;code&gt;-A&lt;/code&gt; 和 &lt;code&gt;-P&lt;/code&gt; 等选项无法使用。&lt;/p&gt;
 &lt;/div&gt;
 
-</description>
-    </item>
-    
-    <item>
-      <title>GMT 5.2.1编译过程中NaN报错的解决办法</title>
-      <link>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</link>
-      <pubDate>Sat, 04 Jun 2016 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</guid>
-      <description>&lt;p&gt;在 Ubunut 16.04 或者其他比较新的 Linux 发行版下编译 GMT 5.2.1 的源码时，会出现如下错误而导致安装失败&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;non-floating-point argument in call to function &#39;__builtin_isnan&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决办法是，找到源码 &lt;code&gt;gmt-5.2.1/src/xyz2grd.c&lt;/code&gt;，将第752行的&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT_is_dnan (GMT-&amp;gt;common.d.active[GMT_IN])) ? sprintf (e_value, &amp;quot;NaN&amp;quot;) : sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;改成&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT-&amp;gt;common.d.active[GMT_IN]) ? sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]) : sprintf (e_value, &amp;quot;NaN&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再编译即可。&lt;/p&gt;
 </description>
     </item>
     
