@@ -26,7 +26,7 @@
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;earth-discontinuities.png&#34; width=&#34;300px&#34; /&gt;
+        &lt;img src=&#34;http://gmt-china.org/example/ex002/earth-discontinuities.png&#34; width=&#34;300px&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -38,7 +38,6 @@
 
 
 &lt;p&gt;绘图脚本如下：&lt;/p&gt;
-
 
 
 

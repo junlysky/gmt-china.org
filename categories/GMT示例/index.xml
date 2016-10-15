@@ -22,7 +22,6 @@
 
 
 
-
 &lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
 #   绘制震源机制分布图，震级控制震源球大小，深度控制震源球颜色
 
@@ -61,7 +60,7 @@ rm gmt.* $CPT
 &lt;p&gt;
 &lt;figure &gt;
     
-        &lt;img src=&#34;beachball.png&#34; /&gt;
+        &lt;img src=&#34;http://gmt-china.org/example/ex001/beachball.png&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -89,7 +88,7 @@ rm gmt.* $CPT
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;earth-discontinuities.png&#34; width=&#34;300px&#34; /&gt;
+        &lt;img src=&#34;http://gmt-china.org/example/ex002/earth-discontinuities.png&#34; width=&#34;300px&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -101,7 +100,6 @@ rm gmt.* $CPT
 
 
 &lt;p&gt;绘图脚本如下：&lt;/p&gt;
-
 
 
 
