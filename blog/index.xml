@@ -9,8 +9,47 @@
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
     <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
-    <lastBuildDate>Wed, 12 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Oct 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://gmt-china.org/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>为子图添加编号</title>
+      <link>http://gmt-china.org/blog/numbering-subfigures/</link>
+      <pubDate>Mon, 17 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/numbering-subfigures/</guid>
+      <description>&lt;p&gt;在绘制组合图（即一张图由多张子图组成）时，需要在每张子图的左上角加上 a、b、c、d 等子图编号。常规的方法是根据子图的 &lt;code&gt;-R&lt;/code&gt; 选项的范围估计编号在当前子图里的坐标，然后使用 &lt;code&gt;pstext&lt;/code&gt; 模块将编号写在坐标所在的位置。此方法的一个明显缺点是，当 &lt;code&gt;-R&lt;/code&gt; 选项发生变化时，子图编号的坐标也需要发生变化。&lt;/p&gt;
+
+&lt;p&gt;其实，GMT5 的 &lt;code&gt;pstext&lt;/code&gt; 模块提供了一个功能，可以用于灵活地进行子图编号。如下脚本所示：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+J=X5c/3c
+R=0/5/0/3
+PS=figures.ps
+
+gmt psbasemap -J$J -R$R -Ba -BWSen -K &amp;gt; $PS
+echo &amp;quot;a&amp;quot; | gmt pstext -J$J -R$R -F+cTL+f15p,1 -Dj-1c/-0.75c -N -K -O &amp;gt;&amp;gt; $PS
+
+gmt psbasemap -J$J -R$R -Ba -BWSen -K -O -X7c &amp;gt;&amp;gt; $PS
+echo &amp;quot;b&amp;quot; | gmt pstext -J$J -R$R -F+cTL+f15p,1 -Dj-1c/-0.75c -N -K -O &amp;gt;&amp;gt; $PS
+
+gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果如下图所示：
+&lt;img src=&#34;http://gmt-china.org/images/numbering-subfigures.png&#34; alt=&#34;子图编号&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;几点说明：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;+cTL&lt;/code&gt; 的作用是从 &lt;code&gt;-R&lt;/code&gt; 选项中提取底图的左上角（&lt;strong&gt;T&lt;/strong&gt;op &lt;strong&gt;L&lt;/strong&gt;eft）作为当前字符串的坐标；&lt;/li&gt;
+&lt;li&gt;由于使用了 &lt;code&gt;+cTL&lt;/code&gt;，因而 &lt;code&gt;pstext&lt;/code&gt; 不再需要 XY 坐标信息，只需要给出字符串 &lt;code&gt;a&lt;/code&gt;、&lt;code&gt;b&lt;/code&gt; 即可；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;+f15p,1&lt;/code&gt; 将编号字号设置为 &lt;code&gt;15p&lt;/code&gt;，1号字体（即粗体）&lt;/li&gt;
+&lt;li&gt;将编号放在左上角还不够，还需要使用 &lt;code&gt;-Dj-1c/-0.75c&lt;/code&gt; 对编号的位置进行微调，此处表示将编号向左边移动 1 cm 向右移动 0.75 cm&lt;/li&gt;
+&lt;li&gt;由于编号位于子图的外部，故而需要加上 &lt;code&gt;-N&lt;/code&gt; 选项使得 &lt;code&gt;pstext&lt;/code&gt; 绘制子图外部的字符串&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>生成多页PS/PDF文件</title>
