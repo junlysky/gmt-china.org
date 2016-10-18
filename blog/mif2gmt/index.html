@@ -8,7 +8,7 @@
     <meta name=generator  content="Hugo 0.17" />
     <meta name=author  content="GMT 中文社区">
     <meta name=description  content="面向 GMT 中文用户的小众社区">
-    <title>为子图添加编号 | GMT 中文社区</title>
+    <title>MIF2GMT：将MIF转换为GMT可用的数据格式 | GMT 中文社区</title>
 
     
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel=stylesheet >
@@ -96,7 +96,7 @@
                         <div class=article-inner >
                             <header class=article-header >
     <h1 class=article-title  itemprop=name >
-	<a href="http://gmt-china.org/blog/numbering-subfigures/" class=permalink >为子图添加编号</a>
+	<a href="http://gmt-china.org/blog/mif2gmt/" class=permalink >MIF2GMT：将MIF转换为GMT可用的数据格式</a>
     </h1>
 
     
@@ -107,7 +107,7 @@
         <div class=article-category >
             <i class="fa fa-sitemap"></i>
             
-            <a class=article-category-link  href="http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7">GMT技巧</a>
+            <a class=article-category-link  href="http://gmt-china.org/categories/GMT%E5%B7%A5%E5%85%B7">GMT工具</a>
             
             
         </div>
@@ -122,7 +122,10 @@
         <div class=article-category >
             <i class="fa fa-user"></i>
             
-            <a class=article-category-link  href="http://gmt-china.org/authors/seisman">seisman</a>
+            <a class=article-category-link  href="http://gmt-china.org/authors/%E9%9F%A6%E8%BF%9B">韦进</a>
+            ,
+            
+            <a class=article-category-link  href="http://gmt-china.org/authors/%E5%88%98%E7%8F%A0%E5%A6%B9">刘珠妹</a>
             
             
         </div>
@@ -130,7 +133,7 @@
         
 
         
-        <time class=article-date  datetime="2016-10-17 00:00:00 &#43;0000 UTC" itemprop=datePublished >2016年10月17日</time>
+        <time class=article-date  datetime="2016-10-18 00:00:00 &#43;0000 UTC" itemprop=datePublished >2016年10月18日</time>
         
     </div>
     
@@ -139,36 +142,139 @@
                             <div class=article-body  itemprop=articleBody >
                                 
 
-                                <p>在绘制组合图（即一张图由多张子图组成）时，需要在每张子图的左上角加上 a、b、c、d 等子图编号。常规的方法是根据子图的 <code>-R</code> 选项的范围估计编号在当前子图里的坐标，然后使用 <code>pstext</code> 模块将编号写在坐标所在的位置。此方法的一个明显缺点是，当 <code>-R</code> 选项发生变化时，子图编号的坐标也需要发生变化。</p>
+                                
 
-<p>其实，GMT5 的 <code>pstext</code> 模块提供了一个功能，可以用于灵活地进行子图编号。如下脚本所示：</p>
+<div class="alert alert-info" role=alert >                              
+程序下载：
+<a href="/datas/MIF2GMT.exe">MIF2GMT.exe</a>
+源码：<a href="https://github.com/gmt-china/GMT_tools/tree/master/MIF2GMT">MIF2GMT</a>
+</div>  
 
-<pre><code class=language-bash >#!/bin/bash
-J=X5c/3c
-R=0/5/0/3
-PS=figures.ps
+<p>工作中经常用到的一些数据，如断层、国界、省界、居民点，很多是MapInfo的TAB、MIF等文件格式，不能在GMT中直接使用，需要经过转换方可使用。</p>
 
-gmt psbasemap -J$J -R$R -Ba -BWSen -K &gt; $PS
-echo &quot;a&quot; | gmt pstext -J$J -R$R -F+cTL+f15p,1 -Dj-1c/-0.75c -N -K -O &gt;&gt; $PS
+<p>MIF2GMT 是一个将 MIF 格式的数据转换为 GMT 可用的 XY 格式的文本数据的小工具。此工具用 C# 写成，在 Windows 平台下可直接使用。</p>
 
-gmt psbasemap -J$J -R$R -Ba -BWSen -K -O -X7c &gt;&gt; $PS
-echo &quot;b&quot; | gmt pstext -J$J -R$R -F+cTL+f15p,1 -Dj-1c/-0.75c -N -K -O &gt;&gt; $PS
+<h2 id="工具使用">工具使用</h2>
 
-gmt psxy -J$J -R$R -T -O &gt;&gt; $PS
+<p>工具运行环境：Windows平台、.NET Framework 4.0 及以上。</p>
+
+<p>数据要求：此工具只支持MIF格式的数据。若原数据为MIF格式，则可直接使用。若原数据为TAB格式，则需要在MapInfo或其他软件中导出为MIF文件。</p>
+
+<p>下载软件后，直接运行 <code>MIT2GMT.exe</code>，选择一个或多个MIF文件，程序自动在该文件当前目录下生成同名XY文件。</p>
+
+<h2 id="原理">原理</h2>
+
+<h3 id="mapinfo数据格式">MapInfo数据格式</h3>
+
+<p>MapInfo 数据存储在包括 <code>*.TAB</code>、<code>*.DAT</code>（二进制）、<code>*.MAP</code>（二进制）、<code>*.ID</code>（二进制）为一组的文件中。分别存储着属性表结构、属性数据、空间数据和索引数据。</p>
+
+<p>MapInfo未公开其内部数据结构，我们只能用以MapInfo为基础平台的软件打开以上数据。对外数据交换由 <code>*.MIF</code> 和 <code>*.MID</code> 这一组文本文件完成。也就是说我们可以将 <code>*.TAB</code> 数据导出为 <code>*.MIF</code> 和 <code>*.MID</code>，并对这两个文件进行编辑和再处理。其中 <code>*.MIF</code> 保存着表结构和对象的空间信息（坐标、符号样式）、 <code>*.MID</code> 则按同样顺序保存对象的属性信息。</p>
+
+<h3 id="数据提取原理">数据提取原理</h3>
+
+<p><code>*.MIF</code> 文件包括文件头和数据区。由于我们关注的是表数据（尤其是坐标值），因此我们需要将 <code>*MIF</code> 中的数据部分提取出来。对于不同类型的表，数据的存储格式分别为：</p>
+
+<h4 id="点">点</h4>
+
+<p>点数据格式：</p>
+
+<pre><code>POINT x y
+&lt;SYMBOL (shape, color, size)&gt;
 </code></pre>
 
-<p>结果如下图所示：
-<img src="/images/numbering-subfigures.png" alt="子图编号" /></p>
+<p>注： <code>&lt;&gt;</code> 表示可省略。</p>
 
-<p>几点说明：</p>
+<p>例如：</p>
 
-<ol>
-<li><code>+cTL</code> 的作用是从 <code>-R</code> 选项中提取底图的左上角（<strong>T</strong>op <strong>L</strong>eft）作为当前字符串的坐标；
-<li>由于使用了 <code>+cTL</code>，因而 <code>pstext</code> 不再需要 XY 坐标信息，只需要给出字符串 <code>a</code>、<code>b</code> 即可；
-<li><code>+f15p,1</code> 将编号字号设置为 <code>15p</code>，1号字体（即粗体）
-<li>将编号放在左上角还不够，还需要使用 <code>-Dj-1c/-0.75c</code> 对编号的位置进行微调，此处表示将编号向左边移动 1 cm 向右移动 0.75 cm
-<li>由于编号位于子图的外部，故而需要加上 <code>-N</code> 选项使得 <code>pstext</code> 绘制子图外部的字符串
-</ol>
+<pre><code>***文件头***省略***
+
+Point 69.136757 34.530907
+    Symbol (41,8726016,10)
+Point 62.209999 34.459999
+    Symbol (41,8726016,10)
+Point 65.5 31.6
+    Symbol (41,8726016,10)
+</code></pre>
+
+<h4 id="线">线</h4>
+
+<p>线数据格式：</p>
+
+<pre><code>PLINE &lt;num&gt;
+x1 y1
+x2 y2
+...
+    &lt;PEN (width, pattern, color)&gt;
+    &lt;SMOOTH&gt;
+</code></pre>
+
+<p>例如：</p>
+
+<pre><code>***文件头***省略***
+
+Pline 5
+86.44583 43.54956
+86.48676 43.54472
+86.53923 43.56675
+86.59575 43.58853
+86.6591 43.6133
+    Pen (2,2,16711680)
+    Smooth
+Pline 17
+86.58673 43.57684
+86.67906 43.56702
+86.77592 43.55147
+...
+</code></pre>
+
+<h4 id="面数据">面数据</h4>
+
+<p>面数据格式：</p>
+
+<pre><code>REGION &lt;num_region&gt;
+num_points
+x1 y1
+x2 y2
+...
+    &lt;PEN (width, pattern, color)&gt;
+    &lt;BRUSH (pattern, forecolor, backcolor)&gt;
+    &lt;CENTER x y&gt;
+</code></pre>
+
+<p>注： <code>num_region</code> 指多边形的数量，<code>num_points</code>指每个多边形节点的数量。</p>
+
+<p>例如：</p>
+
+<pre><code>***文件头***省略***
+...
+Region  1
+  5
+121.925263 25.446125
+121.927017 25.449965
+121.929497 25.452316
+121.935623 25.452707
+121.936172 25.450329
+    Pen (1,2,8421504)
+    Brush (2,16756991,16777215)
+    Center 120.935652 23.647805
+Region  1
+  15858
+109.278892 31.723522
+...
+</code></pre>
+
+<p>以上是基本图形的简化格式，一般我们只需要知道这一个文件的节点坐标，简单的做法就是识别坐标数据，属性部分替换为 <code>&gt;</code>，表示数据分段，最后输出文件。这也是 <code>MIF2GMT.exe</code> 所做的工作。</p>
+
+<h2 id="将来工作">将来工作</h2>
+
+<p>了解了MIF及MID数据格式后，还可以做的工作包括：</p>
+
+<ul>
+<li>提取其中某段数据；
+<li>提取坐标以及图形线型、颜色属性；
+<li>提取MIF文件中的坐标值，MID文件中的属性值（如名称等），合并为一个数据；
+<li>等等等等
+</ul>
 
                             </div>
                             <footer class=article-footer >
@@ -180,22 +286,15 @@ gmt psxy -J$J -R$R -T -O &gt;&gt; $PS
     <ul class=pager >
         
         <li class=previous >
-            <a href="http://gmt-china.org/blog/multipage-ps/">
+            <a href="http://gmt-china.org/blog/numbering-subfigures/">
                 <strong class=article-nav-caption >
                 上一篇
                 </strong>
-                <div class=article-nav-title >生成多页PS/PDF文件</div>
+                <div class=article-nav-title >为子图添加编号</div>
             </a>
         
         
 
-        
-        <li class=next >
-            <a href="http://gmt-china.org/blog/mif2gmt/">
-                <strong class=article-nav-caption >下一篇</strong>
-                <div class=article-nav-title >MIF2GMT：将MIF转换为GMT可用的数据格式</div>
-            </a>
-        
         
     </ul>
 </nav>

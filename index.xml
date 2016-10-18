@@ -9,8 +9,150 @@
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
     <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
-    <lastBuildDate>Mon, 17 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Oct 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://gmt-china.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MIF2GMT：将MIF转换为GMT可用的数据格式</title>
+      <link>http://gmt-china.org/blog/mif2gmt/</link>
+      <pubDate>Tue, 18 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/mif2gmt/</guid>
+      <description>
+
+&lt;div class=&#34;alert alert-info&#34; role=&#34;alert&#34;&gt;                              
+程序下载：
+&lt;a href=&#34;http://gmt-china.org/datas/MIF2GMT.exe&#34;&gt;MIF2GMT.exe&lt;/a&gt;
+源码：&lt;a href=&#34;https://github.com/gmt-china/GMT_tools/tree/master/MIF2GMT&#34;&gt;MIF2GMT&lt;/a&gt;
+&lt;/div&gt;  
+
+&lt;p&gt;工作中经常用到的一些数据，如断层、国界、省界、居民点，很多是MapInfo的TAB、MIF等文件格式，不能在GMT中直接使用，需要经过转换方可使用。&lt;/p&gt;
+
+&lt;p&gt;MIF2GMT 是一个将 MIF 格式的数据转换为 GMT 可用的 XY 格式的文本数据的小工具。此工具用 C# 写成，在 Windows 平台下可直接使用。&lt;/p&gt;
+
+&lt;h2 id=&#34;工具使用&#34;&gt;工具使用&lt;/h2&gt;
+
+&lt;p&gt;工具运行环境：Windows平台、.NET Framework 4.0 及以上。&lt;/p&gt;
+
+&lt;p&gt;数据要求：此工具只支持MIF格式的数据。若原数据为MIF格式，则可直接使用。若原数据为TAB格式，则需要在MapInfo或其他软件中导出为MIF文件。&lt;/p&gt;
+
+&lt;p&gt;下载软件后，直接运行 &lt;code&gt;MIT2GMT.exe&lt;/code&gt;，选择一个或多个MIF文件，程序自动在该文件当前目录下生成同名XY文件。&lt;/p&gt;
+
+&lt;h2 id=&#34;原理&#34;&gt;原理&lt;/h2&gt;
+
+&lt;h3 id=&#34;mapinfo数据格式&#34;&gt;MapInfo数据格式&lt;/h3&gt;
+
+&lt;p&gt;MapInfo 数据存储在包括 &lt;code&gt;*.TAB&lt;/code&gt;、&lt;code&gt;*.DAT&lt;/code&gt;（二进制）、&lt;code&gt;*.MAP&lt;/code&gt;（二进制）、&lt;code&gt;*.ID&lt;/code&gt;（二进制）为一组的文件中。分别存储着属性表结构、属性数据、空间数据和索引数据。&lt;/p&gt;
+
+&lt;p&gt;MapInfo未公开其内部数据结构，我们只能用以MapInfo为基础平台的软件打开以上数据。对外数据交换由 &lt;code&gt;*.MIF&lt;/code&gt; 和 &lt;code&gt;*.MID&lt;/code&gt; 这一组文本文件完成。也就是说我们可以将 &lt;code&gt;*.TAB&lt;/code&gt; 数据导出为 &lt;code&gt;*.MIF&lt;/code&gt; 和 &lt;code&gt;*.MID&lt;/code&gt;，并对这两个文件进行编辑和再处理。其中 &lt;code&gt;*.MIF&lt;/code&gt; 保存着表结构和对象的空间信息（坐标、符号样式）、 &lt;code&gt;*.MID&lt;/code&gt; 则按同样顺序保存对象的属性信息。&lt;/p&gt;
+
+&lt;h3 id=&#34;数据提取原理&#34;&gt;数据提取原理&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;*.MIF&lt;/code&gt; 文件包括文件头和数据区。由于我们关注的是表数据（尤其是坐标值），因此我们需要将 &lt;code&gt;*MIF&lt;/code&gt; 中的数据部分提取出来。对于不同类型的表，数据的存储格式分别为：&lt;/p&gt;
+
+&lt;h4 id=&#34;点&#34;&gt;点&lt;/h4&gt;
+
+&lt;p&gt;点数据格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;POINT x y
+&amp;lt;SYMBOL (shape, color, size)&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注： &lt;code&gt;&amp;lt;&amp;gt;&lt;/code&gt; 表示可省略。&lt;/p&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;***文件头***省略***
+
+Point 69.136757 34.530907
+    Symbol (41,8726016,10)
+Point 62.209999 34.459999
+    Symbol (41,8726016,10)
+Point 65.5 31.6
+    Symbol (41,8726016,10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;线&#34;&gt;线&lt;/h4&gt;
+
+&lt;p&gt;线数据格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PLINE &amp;lt;num&amp;gt;
+x1 y1
+x2 y2
+...
+    &amp;lt;PEN (width, pattern, color)&amp;gt;
+    &amp;lt;SMOOTH&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;***文件头***省略***
+
+Pline 5
+86.44583 43.54956
+86.48676 43.54472
+86.53923 43.56675
+86.59575 43.58853
+86.6591 43.6133
+    Pen (2,2,16711680)
+    Smooth
+Pline 17
+86.58673 43.57684
+86.67906 43.56702
+86.77592 43.55147
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;面数据&#34;&gt;面数据&lt;/h4&gt;
+
+&lt;p&gt;面数据格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;REGION &amp;lt;num_region&amp;gt;
+num_points
+x1 y1
+x2 y2
+...
+    &amp;lt;PEN (width, pattern, color)&amp;gt;
+    &amp;lt;BRUSH (pattern, forecolor, backcolor)&amp;gt;
+    &amp;lt;CENTER x y&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注： &lt;code&gt;num_region&lt;/code&gt; 指多边形的数量，&lt;code&gt;num_points&lt;/code&gt;指每个多边形节点的数量。&lt;/p&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;***文件头***省略***
+...
+Region  1
+  5
+121.925263 25.446125
+121.927017 25.449965
+121.929497 25.452316
+121.935623 25.452707
+121.936172 25.450329
+    Pen (1,2,8421504)
+    Brush (2,16756991,16777215)
+    Center 120.935652 23.647805
+Region  1
+  15858
+109.278892 31.723522
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上是基本图形的简化格式，一般我们只需要知道这一个文件的节点坐标，简单的做法就是识别坐标数据，属性部分替换为 &lt;code&gt;&amp;gt;&lt;/code&gt;，表示数据分段，最后输出文件。这也是 &lt;code&gt;MIF2GMT.exe&lt;/code&gt; 所做的工作。&lt;/p&gt;
+
+&lt;h2 id=&#34;将来工作&#34;&gt;将来工作&lt;/h2&gt;
+
+&lt;p&gt;了解了MIF及MID数据格式后，还可以做的工作包括：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;提取其中某段数据；&lt;/li&gt;
+&lt;li&gt;提取坐标以及图形线型、颜色属性；&lt;/li&gt;
+&lt;li&gt;提取MIF文件中的坐标值，MID文件中的属性值（如名称等），合并为一个数据；&lt;/li&gt;
+&lt;li&gt;等等等等&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>为子图添加编号</title>
@@ -514,6 +656,14 @@ rm gmt.* *.raypath.gmt
 
 &lt;hr /&gt;
 
+&lt;h2 id=&#34;gmt相关工具下载&#34;&gt;GMT相关工具下载&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://gmt-china.org/blog/mif2gmt&#34;&gt;MIF2GMT&lt;/a&gt;: 将MIF格式数据转换为GMT可用的数据格式&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
 &lt;h2 id=&#34;数据下载&#34;&gt;数据下载&lt;/h2&gt;
 
 &lt;h3 id=&#34;地形起伏数据&#34;&gt;地形起伏数据&lt;/h3&gt;
@@ -753,25 +903,6 @@ function TitleControl(controlDiv, map) {
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>首页</title>
-      <link>http://gmt-china.org/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/</guid>
-      <description>&lt;p&gt;GMT，全称Generic Mapping Tools，是一种开源地图绘制工具，广泛应用于全球地学界。&lt;/p&gt;
-
-&lt;p&gt;GMT中文社区是为GMT中文用户而建立的小众社区。首次访问社区主页的用户，可以先看看 &lt;a href=&#34;http://gmt-china.org/about/&#34;&gt;关于&lt;/a&gt; 页面中社区的相关信息，也可以看看社区的 &lt;a href=&#34;http://gmt-china.org/blog/&#34;&gt;博客&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;社区内包含了大量的GMT相关资源：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://gmt-china.org/download/&#34;&gt;下载&lt;/a&gt; 页面中可以下载最新的GMT安装包、文档以及相关数据&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://gmt-china.org/docs/&#34;&gt;文档&lt;/a&gt; 页面中包含了社区翻译和维护的中文文档，包括参考手册、模块手册&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
