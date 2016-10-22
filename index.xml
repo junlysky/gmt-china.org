@@ -615,8 +615,8 @@ rm gmt.* *.raypath.gmt
 &lt;div class=&#34;tab-content&#34;&gt;
 &lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane  active &#34; id=&#34;windows&#34;&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.2.1-win32&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win32.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.2.1-win64&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-win64.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.3.1-win32&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.3.1-win32.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.3.1-win64&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.3.1-win64.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;ghostscript 32 bit&lt;/strong&gt;： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w32.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;ghostscript 64 bit&lt;/strong&gt;： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w64.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;gsview&lt;/strong&gt;： &lt;a href=&#34;http://www.gsview.com/downloads/gsview_setup_6.0.exe&#34; target=&#34;_blank&#34;&gt;gsview官网&lt;/a&gt;&lt;/li&gt;
@@ -627,9 +627,9 @@ rm gmt.* *.raypath.gmt
 
 &lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane &#34; id=&#34;linux&#34;&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.2.1-src&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gmt-5.2.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;gshhg-gmt-2.3.6&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/gshhg-gmt-2.3.6.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gshhg-gmt-2.3.6.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;dcw-gmt-1.1.2&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.3.1-src&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gmt-5.3.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gshhg-gmt-2.3.6&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gshhg-gmt-2.3.6.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dcw-gmt-1.1.2&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;/div&gt;
@@ -637,7 +637,7 @@ rm gmt.* *.raypath.gmt
 
 &lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane &#34; id=&#34;mac&#34;&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.2.1-darwin-x86_64&lt;/strong&gt;： &lt;a href=&#34;ftp://ftp.soest.hawaii.edu/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;GMT官网&lt;/a&gt;  &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.2.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gmt-5.3.1-darwin-x86_64&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.3.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;/div&gt;
