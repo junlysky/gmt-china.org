@@ -9,117 +9,8 @@
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
     <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
-    <lastBuildDate>Sat, 22 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Oct 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://gmt-china.org/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>中国国界、省界及九段线</title>
-      <link>http://gmt-china.org/example/ex003/</link>
-      <pubDate>Sat, 22 Oct 2016 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/example/ex003/</guid>
-      <description>
-
-&lt;p&gt;由于存在领土争议，GMT 自带的国界数据是无法直接用于发表的，因而用户需要自己准备国界数据。本文提供了网络上流传的几个国界相关数据，以及两个绘制中国地图的脚本。&lt;/p&gt;
-
-&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载： &lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt;
-&lt;a href=&#34;http://gmt-china.org/datas/CN-border-L1.dat&#34;&gt;CN-border-L1.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-border-L2.dat&#34;&gt;CN-border-L2.dat&lt;/a&gt;
-&lt;a href=&#34;http://gmt-china.org/datas/nine-dash-line.dat&#34;&gt;nine-dash-line.dat&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-
-&lt;div class=&#34;alert alert-info&#34; role=&#34;alert&#34;&gt;&lt;ol&gt;
-&lt;li&gt;数据来源于网络，无法保证数据可通过审核；&lt;/li&gt;
-&lt;li&gt;欢迎用户共享更准确的国界数据；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;CN-border-La.dat&lt;/code&gt; 中包含最全的信息，包括国界、省界、九段线以及南海诸多小岛，但其中青海宁夏边界有误；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;CN-border-L1.dat&lt;/code&gt; 仅包含国界数据；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;CN-border-L2.dat&lt;/code&gt; 包含国界、省界以及南海诸多小岛，但南海诸岛信息不全；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nine-dash-line.dat&lt;/code&gt; 仅包含九段线数据；&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-
-
-&lt;h2 id=&#34;jd-等距圆锥投影&#34;&gt;-JD 等距圆锥投影&lt;/h2&gt;
-
-&lt;p&gt;
-
-
-&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
-R=70/140/3/60
-J=D105/35/36/42/7.5i
-PS=CN-border-JD.ps
-
-gmt set FONT_ANNOT_PRIMARY 9p
-gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
-gmt set FORMAT_GEO_MAP ddd:mm:ssF
-gmt set MAP_FRAME_WIDTH 2p
-
-gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/11&amp;#43;c11&amp;#43;w900k&amp;#43;f&amp;#43;u&amp;#43;l&amp;#39;Scale&amp;#39; \
-    --FONT_ANNOT_PRIMARY=7p --FONT_LABEL=8p --MAP_LABEL_OFFSET=5p -K &amp;gt; $PS
-gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O &amp;gt;&amp;gt; $PS
-rm gmt.conf gmt.history
-&lt;/code&gt;&lt;/pre&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://gmt-china.org/example/ex003/CN-border-JD.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;中国地图&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
-&lt;/figure&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&#34;jm-墨卡托投影&#34;&gt;-JM 墨卡托投影&lt;/h2&gt;
-
-&lt;p&gt;
-
-
-&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
-R=70/138/13/56
-J=M105/35/6.5i
-PS=CN-border-JM.ps
-
-gmt set FONT_ANNOT_PRIMARY 9p
-gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
-gmt set FORMAT_GEO_MAP ddd:mm:ssF
-gmt set MAP_FRAME_WIDTH 3p
-
-# 绘制中国地图
-gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u&amp;#43;l&amp;#39;Scale&amp;#39; \
-    --FONT_ANNOT_PRIMARY=7p --FONT_LABEL=8p --MAP_LABEL_OFFSET=5p -K &amp;gt; $PS
-gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O -K &amp;gt;&amp;gt; $PS
-
-# 绘制南海区域
-R=105/123/3/24
-J=M1.1i
-gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
-gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
-gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
-echo &amp;#34;SC Sea Islands&amp;#34; | gmt pstext -J$J -R$R -F&amp;#43;f10p&amp;#43;cBC -D0c/0.1c -N -Gwhite -O &amp;gt;&amp;gt; $PS
-
-rm gmt.conf gmt.history
-&lt;/code&gt;&lt;/pre&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;http://gmt-china.org/example/ex003/CN-border-JM.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;中国地图&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
-&lt;/figure&gt;
-&lt;/p&gt;
-</description>
-    </item>
     
     <item>
       <title>MIF2GMT：将MIF转换为GMT可用的数据格式</title>
@@ -961,6 +852,63 @@ function TitleControl(controlDiv, map) {
       <description>&lt;div class=&#34;alert alert-info&#34; role=&#34;alert&#34;&gt;
 &lt;strong&gt;欢迎投稿&lt;/strong&gt;。
 投稿者请将代码、数据及成图发送至 &lt;a href=&#34;mailto:admin@gmt-china.org&#34; target=&#34;_blank&#34;&gt;admin@gmt-china.org &lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>文档</title>
+      <link>http://gmt-china.org/docs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/docs/</guid>
+      <description>&lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;            
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-book&#34;&gt;&lt;/i&gt; GMT参考手册&lt;/h3&gt;
+            &lt;p&gt;参考手册详细介绍了GMT的基础和进阶知识，是GMT新手的推荐入门读物，同时也可以在日常绘图时作为参考。&lt;/p&gt;
+            &lt;div class=&#34;text-center&#34;&gt;
+            &lt;a href=&#34;http://docs.gmt-china.org&#34; class=&#34;btn btn-primary&#34; role=&#34;button&#34;&gt;主页&lt;/a&gt;
+            &lt;a href=&#34;https://github.com/gmt-china/GMT_docs&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;源码&lt;/a&gt;
+            &lt;a href=&#34;http://gmt-china.org/download/&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;下载&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-book&#34;&gt;&lt;/i&gt; GMT模块手册&lt;/h3&gt;
+            &lt;p&gt;模块手册详细介绍了GMT模块的语法和用法，并辅以示例和效果图，以帮助用户掌握模块的使用方法。&lt;/p&gt;
+            &lt;div class=&#34;text-center&#34;&gt;
+            &lt;a href=&#34;http://modules.gmt-china.org&#34; class=&#34;btn btn-primary&#34; role=&#34;button&#34;&gt;主页&lt;/a&gt;
+            &lt;a href=&#34;https://github.com/gmt-china/GMT_modules&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;源码&lt;/a&gt;
+            &lt;a href=&#34;http://gmt-china.org/download/&#34; class=&#34;btn btn-default&#34; role=&#34;button&#34;&gt;下载&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;clearfix visible-sm&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-image&#34;&gt;&lt;/i&gt; GMT 图库&lt;/h3&gt;
+            &lt;p&gt;图库收集了众多使用GMT绘制的图片，每张图片均提供了相应的脚本及数据，读者可以学习并修改这些示例。&lt;/p&gt;
+            &lt;div class=&#34;text-center&#34;&gt;
+            &lt;a href=&#34;http://gmt-china.org/gallery/&#34; class=&#34;btn btn-primary&#34; role=&#34;button&#34;&gt;主页&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-sm-6 col-md-3 col-lg-3&#34;&gt;
+        &lt;div class=&#34;thumbnail&#34;&gt;
+            &lt;div class=&#34;caption&#34;&gt;
+            &lt;h3 class=&#34;text-center&#34;&gt;&lt;i class=&#34;fa fa-question-circle&#34;&gt;&lt;/i&gt; GMT FAQ&lt;/h3&gt;
+            &lt;p&gt;FAQ 中收集整理了GMT使用过程中的常见问题及其解答。&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>
