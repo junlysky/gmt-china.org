@@ -9,8 +9,251 @@
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
     <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
-    <lastBuildDate>Mon, 24 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Oct 2016 15:30:00 +0000</lastBuildDate>
     <atom:link href="http://gmt-china.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>中国一级河流数据</title>
+      <link>http://gmt-china.org/example/ex008/</link>
+      <pubDate>Tue, 25 Oct 2016 15:30:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex008/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-Rivers.dat&#34;&gt;CN-Rivers.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=70/138/13/56
+J=M105/35/6.5i
+PS=CN-Rivers.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O -K &amp;gt;&amp;gt; $PS
+
+# 绘制一级河流数据
+gmt psxy CN-Rivers.dat -J$J -R$R -W1p,blue -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+
+gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex008/CN-Rivers.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国一级河流&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>中国断层数据</title>
+      <link>http://gmt-china.org/example/ex007/</link>
+      <pubDate>Tue, 25 Oct 2016 14:50:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex007/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-faults.dat&#34;&gt;CN-faults.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;断层数据来源于邓起东院士。&lt;/p&gt;
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=70/138/13/56
+J=M105/35/6.5i
+PS=CN-faults.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O -K &amp;gt;&amp;gt; $PS
+
+# 绘制断层数据
+gmt psxy CN-faults.dat -J$J -R$R -W0.5p,blue -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+
+gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex007/CN-faults.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国断层线&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>中国铁路线</title>
+      <link>http://gmt-china.org/example/ex006/</link>
+      <pubDate>Tue, 25 Oct 2016 14:34:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex006/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-Railways.dat&#34;&gt;CN-Railways.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;铁路线数据来源于 MapSIS。&lt;/p&gt;
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=70/138/13/56
+J=M105/35/6.5i
+PS=CN-Railways.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.5p,gray -O -K &amp;gt;&amp;gt; $PS
+
+# 两次 psxy 命令使用不同的画笔属性以得到图中所示的铁轨效果
+gmt psxy CN-Railways.dat -J$J -R$R -W1.2p,black -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-Railways.dat -J$J -R$R -W0.8p,white,8_8: -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+
+gmt psxy -J$J -R$R -O -T &amp;gt;&amp;gt; $PS
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex006/CN-Railways.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国铁路线&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>中国地震区域划分</title>
+      <link>http://gmt-china.org/example/ex005/</link>
+      <pubDate>Tue, 25 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex005/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-EQRegion.dat&#34;&gt;CN-EQRegion.dat&lt;/a&gt;
+&lt;a href=&#34;http://gmt-china.org/datas/CN-EQRegion-name.dat&#34;&gt;CN-EQRegion-name.dat&lt;/a&gt;
+&lt;a href=&#34;http://gmt-china.org/datas/CN-EQSubRegion.dat&#34;&gt;CN-EQSubRegion.dat&lt;/a&gt;
+&lt;a href=&#34;http://gmt-china.org/datas/CN-EQSubRegion-name.dat&#34;&gt;CN-EQSubRegion-name.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;本文提供了中国地震区划数据。&lt;/p&gt;
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=65/145/12/56
+J=M105/6.5i
+PS=CN-EQRegion.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w500k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0p,gray70 -O -K &amp;gt;&amp;gt; $PS
+
+# 绘制地震亚区
+gmt psxy CN-EQSubRegion.dat -J$J -R$R -W1p,blue -K -O &amp;gt;&amp;gt; $PS
+gmt pstext CN-EQSubRegion-name.dat -J$J -R$R -F&amp;#43;f8p,35,blue -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制地震区
+gmt psxy CN-EQRegion.dat -J$J -R$R -W1p,red -K -O &amp;gt;&amp;gt; $PS
+gmt pstext CN-EQRegion-name.dat -J$J -R$R -F&amp;#43;f10p,35,red -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+echo &amp;#34;南海诸岛&amp;#34; | gmt pstext -J$J -R$R -F&amp;#43;f10p,35&amp;#43;cBC -D0c/0.1c -N -Gwhite -O &amp;gt;&amp;gt; $PS
+
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex005/CN-EQRegion.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国地震区域划分&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>中国省会城市分布图</title>
@@ -724,271 +967,6 @@ rm gmt.* *.raypath.gmt
 &lt;li&gt;第二个 &lt;code&gt;pabasemap&lt;/code&gt; 用于绘制410界面，其与前一命令基本相同，唯一的区别是 &lt;code&gt;-Byg6371+5961&lt;/code&gt; 中多了 &lt;code&gt;+5961&lt;/code&gt;，其作用是定义网格线的起算点，即此时将在 R=5961（即410界面）处绘制网格线。&lt;/li&gt;
 &lt;li&gt;其他同理&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>GMT国内镜像正式建成</title>
-      <link>http://gmt-china.org/blog/mirror-site-founded/</link>
-      <pubDate>Fri, 08 Jul 2016 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/blog/mirror-site-founded/</guid>
-      <description>&lt;p&gt;经过本社区积极联系，GMT中国区镜像站点已于2016年7月6日正式建立，并已加入GMT官网镜像列表中。&lt;/p&gt;
-
-&lt;p&gt;该镜像站点依托中国科学技术大学LUG服务器，是 GMT 在亚洲地区第二个镜像站，也是中国第一个镜像站。&lt;/p&gt;
-
-&lt;p&gt;镜像地址：&lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/&#34; target=&#34;_blank&#34;&gt;http://mirrors.ustc.edu.cn/gmt/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;进入 GMT 镜像即可直接下载 GMT 源码包，Windows/Mac 安装包位于镜像的 &lt;code&gt;bin&lt;/code&gt; 目录下。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>GMT 5.2.1编译过程中NaN报错的解决办法</title>
-      <link>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</link>
-      <pubDate>Sat, 04 Jun 2016 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/blog/GMT5.2.1-NaN-bug/</guid>
-      <description>&lt;p&gt;在 Ubunut 16.04 或者其他比较新的 Linux 发行版下编译 GMT 5.2.1 的源码时，会出现如下错误而导致安装失败&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;non-floating-point argument in call to function &#39;__builtin_isnan&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决办法是，找到源码 &lt;code&gt;gmt-5.2.1/src/xyz2grd.c&lt;/code&gt;，将第752行的&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT_is_dnan (GMT-&amp;gt;common.d.active[GMT_IN])) ? sprintf (e_value, &amp;quot;NaN&amp;quot;) : sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;改成&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;(GMT-&amp;gt;common.d.active[GMT_IN]) ? sprintf (e_value, GMT-&amp;gt;current.setting.format_float_out, GMT-&amp;gt;common.d.nan_proxy[GMT_IN]) : sprintf (e_value, &amp;quot;NaN&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再编译即可。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>GMT中文社区正式成立</title>
-      <link>http://gmt-china.org/blog/gmt-china-community-founded/</link>
-      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/blog/gmt-china-community-founded/</guid>
-      <description>
-
-&lt;p&gt;GMT的中文用户们，大家好，我是 &lt;a href=&#34;https://seisman.info&#34; target=&#34;_blank&#34;&gt;seisman&lt;/a&gt; 。&lt;/p&gt;
-
-&lt;p&gt;GMT中文社区于今日正式成立了！&lt;/p&gt;
-
-&lt;p&gt;GMT中文社区是针对GMT中文用户而成立的社区。整个社区目前包含了三个主要部分：社区主站、GMT中文文档和问答社区。&lt;/p&gt;
-
-&lt;p&gt;在社区的第一篇博文中，我想谈谈建立这个社区的原因及一些想法。&lt;/p&gt;
-
-&lt;h2 id=&#34;gmt中文文档&#34;&gt;GMT中文文档&lt;/h2&gt;
-
-&lt;p&gt;GMT中文文档的项目始于2014年，到2016年初已经初步成形。中文文档包括三个部分：参考手册、模块手册和示例集。&lt;/p&gt;
-
-&lt;p&gt;在2014年，网络上能够找到的几本GMT中文文档，大多基于GMT4甚至GMT3。这几本文档存在一些明显的缺陷：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;排版质量一般，大多是在Word里写好然后转换成PDF的&lt;/li&gt;
-&lt;li&gt;缺乏维护，几乎都是写好发布之后就没有再更新&lt;/li&gt;
-&lt;li&gt;不完整，很多有价值的内容都没有被包含在文档中&lt;/li&gt;
-&lt;li&gt;不严谨，很多文档声称是基于GMT4，但实际上某些命令却在使用GMT3的语法&lt;/li&gt;
-&lt;li&gt;无法适配最新版的GMT，某些时候对于新用户而言是一种障碍&lt;/li&gt;
-&lt;li&gt;重复劳动：不同的作者，花费了大量的时间和精力，翻译整理出了几份相似的文档，这其中很多工作都是在重复劳动&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;因而，我于2014年开始写针对GMT5的中文文档。新的GMT中文文档具有如下特点：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;开源：源代码用rST语言写成，并在GitHub上开源&lt;/li&gt;
-&lt;li&gt;高质量排版：文档有网页版和PDF版，保证高质量的排版（目前尚存在不足，见第5条）&lt;/li&gt;
-&lt;li&gt;完整性：尽可能覆盖GMT的方方面面，成为一个完整的参考手册（没有最完整，只有更完整，见第5条）&lt;/li&gt;
-&lt;li&gt;协同合作：依托强大的GitHub和Git，使得多人合作共同编辑同一份文档变得很简单&lt;/li&gt;
-&lt;li&gt;持续维护：不仅适配GMT的新版本，而且不断修正文档中存在的错误&lt;/li&gt;
-&lt;li&gt;严谨性：尽可能保证所有命令均通过GMT最新版本的测试&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;经过两年努力，文档的整体结构已经大体完成。我希望文档今后能够持续更新，不断完善，不管是接下来的GMT 5.2.2、5.3.0还是未来的GMT 6.0甚至7.0，都能随着GMT版本的升级而不断更新，但这些已非我一人之力所能完成。众人拾柴火焰高。我希望有更多的GMT中文用户加入到文档维护的队伍中来，这便是我建立GMT中文社区的目的。&lt;/p&gt;
-
-&lt;h2 id=&#34;问答社区&#34;&gt;问答社区&lt;/h2&gt;
-
-&lt;p&gt;GMT问答社区的前身是地学GMT学习群（群号：218905582）。QQ群属于即时通讯，通常在群中提的问题都可以快速得到答案，但与此同时，QQ群存在如下缺点：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;即时性导致的随意性：由于QQ本质上是一种聊天工具，导致很多人在提问时太过随意。遇到问题时，不加思索在QQ群中提问，却不去思考如何提问，如何在提问时提供完整有效的信息，如何在提问时解释清楚自己想要实现什么和遇到了什么问题。QQ群中的很多提问都是如此，需要回答者多次向提问者发问才能搞清楚提问者的问题。这不仅浪费了回答者的时间，也不利于提问者能力的提高。&lt;/li&gt;
-&lt;li&gt;多话题引起的错乱：经常遇到几个人同时提问，几个话题互相交叉，使得搞不清到底谁在回复谁&lt;/li&gt;
-&lt;li&gt;问答记录无法长期保存：只有用户接收到的消息会被保存到本地磁盘中，而对于新加入的成员而言，则无法看到历史聊天记录&lt;/li&gt;
-&lt;li&gt;问答记录无法搜索：仅当聊天记录保存在本地磁盘中才能被搜索，无法通过搜索引擎检索&lt;/li&gt;
-&lt;li&gt;问答记录无法被非群成员搜索：有大量的GMT用户未加入群中，这些非成员则无法获取这些优质的问答资源&lt;/li&gt;
-&lt;li&gt;Linux用户提问不便：Linux下几乎没有可用的QQ客户端，导致众多Linux下的GMT用户只能通过手机打字在群中提问，且只能通过手机拍照的方式上传屏幕截图&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;鉴于QQ群的以上几个缺点，萌生了建立问答社区的想法。希望这样一个问答社区可以解决QQ群存在的问题。问答社区将努力保持高信噪比，专注于GMT的问与答。&lt;/p&gt;
-
-&lt;h2 id=&#34;gmt中文社区&#34;&gt;GMT中文社区&lt;/h2&gt;
-
-&lt;p&gt;最初是计划把中文文档以及问答社区都放在我自己的博客域名之下的，但这样做一方面不够正式，另一方面也会影响到我对于自己博客的整体定位。最终经过一番考量之后，决定单独购买域名，建立GMT中文社区，然后将文档以及问答社区作为GMT中文社区的子项目。&lt;/p&gt;
-
-&lt;p&gt;现在，整个GMT中文社区的基本框架已经搭建完毕。我希望它能顺利运行下去，也欢迎更多的人提意见和建议，加入到整个社区的维护中来。&lt;/p&gt;
-
-&lt;p&gt;最后，我要感谢王亮在整个社区的建立过程中和我交流与讨论，并给出了很多有意义的建议。我还要感谢各种开源服务，我的工作是建立在它们之上的。我也希望华语地学界有更多的人了解开源、认同开源、热爱开源并最终参与到开源中来。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>下载</title>
-      <link>http://gmt-china.org/download/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>admin@gmt-china.org (GMT 中文社区)</author>
-      <guid>http://gmt-china.org/download/</guid>
-      <description>
-
-&lt;h2 id=&#34;软件下载&#34;&gt;软件下载&lt;/h2&gt;
-
-&lt;div&gt;
-&lt;ul class=&#34;nav nav-tabs&#34; role=&#34;tablist&#34;&gt;
-&lt;li role=&#34;presentation&#34;  class=&#34;active&#34; &gt;
-    &lt;a href=&#34;#windows&#34; aria-controls=&#34;clone&#34; role=&#34;tab&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Window用户&lt;/a&gt;
-&lt;/li&gt;
-
-&lt;li role=&#34;presentation&#34; &gt;
-    &lt;a href=&#34;#linux&#34; aria-controls=&#34;clone&#34; role=&#34;tab&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Linux用户&lt;/a&gt;
-&lt;/li&gt;
-
-&lt;li role=&#34;presentation&#34; &gt;
-    &lt;a href=&#34;#mac&#34; aria-controls=&#34;clone&#34; role=&#34;tab&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Mac用户&lt;/a&gt;
-&lt;/li&gt;
-
-&lt;/ul&gt;
-
-&lt;div class=&#34;tab-content&#34;&gt;
-&lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane  active &#34; id=&#34;windows&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.3.1-win32&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.3.1-win32.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.3.1-win64&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.3.1-win64.exe&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ghostscript 32 bit&lt;/strong&gt;： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w32.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ghostscript 64 bit&lt;/strong&gt;： &lt;a href=&#34;https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/gs919w64.exe&#34; target=&#34;_blank&#34;&gt;ghostscript官网&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;gsview&lt;/strong&gt;： &lt;a href=&#34;http://www.gsview.com/downloads/gsview_setup_6.0.exe&#34; target=&#34;_blank&#34;&gt;gsview官网&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-
-
-&lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane &#34; id=&#34;linux&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.3.1-src&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gmt-5.3.1-src.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;gshhg-gmt-2.3.6&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/gshhg-gmt-2.3.6.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;dcw-gmt-1.1.2&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/dcw-gmt-1.1.2.tar.gz&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-
-
-&lt;div role=&#34;tabpanel&#34; class=&#34;tab-pane &#34; id=&#34;mac&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;gmt-5.3.1-darwin-x86_64&lt;/strong&gt;： &lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/bin/gmt-5.3.1-darwin-x84_64.dmg&#34; target=&#34;_blank&#34;&gt;中科大镜像&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;文档下载&#34;&gt;文档下载&lt;/h2&gt;
-
-&lt;h3 id=&#34;gmt-参考手册&#34;&gt;GMT 参考手册&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;GMT 5.3.1：&lt;a href=&#34;http://docs.gmt-china.org/&#34; target=&#34;_blank&#34;&gt;在线阅读&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_docs/raw/doc-dev/GMT_docs-dev.pdf&#34; target=&#34;_blank&#34;&gt;PDF&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_docs/raw/doc-dev/GMT_docs-dev.zip&#34; target=&#34;_blank&#34;&gt;HTML&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;GMT 5.2.1：&lt;a href=&#34;https://github.com/gmt-china/GMT_docs/releases/download/v5.2.1/GMT_docs-v5.2.1.pdf&#34; target=&#34;_blank&#34;&gt;PDF&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_docs/releases/download/v5.2.1/GMT_docs-v5.2.1-HTML.zip&#34; target=&#34;_blank&#34;&gt;HTML&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;gmt-模块手册&#34;&gt;GMT 模块手册&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;GMT 5.3.1：&lt;a href=&#34;http://modules.gmt-china.org/&#34; target=&#34;_blank&#34;&gt;在线阅读&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_modules/raw/doc-dev/GMT_modules-dev.pdf&#34; target=&#34;_blank&#34;&gt;PDF&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_modules/raw/doc-dev/GMT_modules-dev.zip&#34; target=&#34;_blank&#34;&gt;HTML&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;GMT 5.2.1：&lt;a href=&#34;https://github.com/gmt-china/GMT_modules/releases/download/v5.2.1/GMT_modules-v5.2.1.pdf&#34; target=&#34;_blank&#34;&gt;PDF&lt;/a&gt; &lt;a href=&#34;https://github.com/gmt-china/GMT_modules/releases/download/v5.2.1/GMT_modules-v5.2.1-HTML.zip&#34; target=&#34;_blank&#34;&gt;HTML&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;gmt相关工具下载&#34;&gt;GMT相关工具下载&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://gmt-china.org/blog/mif2gmt&#34;&gt;MIF2GMT&lt;/a&gt;: 将MIF格式数据转换为GMT可用的数据格式&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;数据下载&#34;&gt;数据下载&lt;/h2&gt;
-
-&lt;h3 id=&#34;地形起伏数据&#34;&gt;地形起伏数据&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;数据源&lt;/th&gt;
-&lt;th&gt;空间分辨率&lt;/th&gt;
-&lt;th&gt;覆盖范围&lt;/th&gt;
-&lt;th&gt;陆地/海洋&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;http://www.ngdc.noaa.gov/mgg/global/&#34; target=&#34;_blank&#34;&gt;etopo1&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;1弧分&lt;/td&gt;
-&lt;td&gt;全球&lt;/td&gt;
-&lt;td&gt;陆地+海洋&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;http://www.bodc.ac.uk/data/online_delivery/gebco/&#34; target=&#34;_blank&#34;&gt;GEBCO&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;1弧分/30弧秒&lt;/td&gt;
-&lt;td&gt;全球&lt;/td&gt;
-&lt;td&gt;陆地+海洋&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;ftp://edcftp.cr.usgs.gov/data/gtopo30/global/&#34; target=&#34;_blank&#34;&gt;GTOPO30&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;30弧秒&lt;/td&gt;
-&lt;td&gt;全球&lt;/td&gt;
-&lt;td&gt;陆地&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;http://topex.ucsd.edu/WWW_html/srtm30_plus.html&#34; target=&#34;_blank&#34;&gt;SRTM30_PLUS&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;30弧秒(约1km)&lt;/td&gt;
-&lt;td&gt;纬度[-81,81]&lt;/td&gt;
-&lt;td&gt;陆地+海洋&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;http://topex.ucsd.edu/WWW_html/mar_topo.html&#34; target=&#34;_blank&#34;&gt;SRTM15_PLUS&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;15弧秒(约500m)&lt;/td&gt;
-&lt;td&gt;纬度[-81,81]&lt;/td&gt;
-&lt;td&gt;陆地+海洋&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;http://srtm.csi.cgiar.org/SELECTION/inputCoord.asp&#34; target=&#34;_blank&#34;&gt;SRTM&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;3弧秒(约90m)&lt;/td&gt;
-&lt;td&gt;纬度[-60,60]&lt;/td&gt;
-&lt;td&gt;陆地&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;ASTER GDEM&lt;/td&gt;
-&lt;td&gt;1弧秒(约30m)&lt;/td&gt;
-&lt;td&gt;纬度[-83,83]&lt;/td&gt;
-&lt;td&gt;陆地&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
 </description>
     </item>
     

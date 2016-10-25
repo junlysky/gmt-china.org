@@ -8,7 +8,7 @@
     <meta name=generator  content="Hugo 0.17" />
     <meta name=author  content="GMT 中文社区">
     <meta name=description  content="面向 GMT 中文用户的小众社区">
-    <title>中国省会城市分布图 | GMT 中文社区</title>
+    <title>中国一级河流数据 | GMT 中文社区</title>
 
     
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel=stylesheet >
@@ -96,7 +96,7 @@
                         <div class=article-inner >
                             <header class=article-header >
     <h1 class=article-title  itemprop=name >
-	<a href="http://gmt-china.org/example/ex004/" class=permalink >中国省会城市分布图</a>
+	<a href="http://gmt-china.org/example/ex008/" class=permalink >中国一级河流数据</a>
     </h1>
 
     
@@ -133,7 +133,7 @@
         
 
         
-        <time class=article-date  datetime="2016-10-24 00:00:00 &#43;0000 UTC" itemprop=datePublished >2016年10月24日</time>
+        <time class=article-date  datetime="2016-10-25 15:30:00 &#43;0000 UTC" itemprop=datePublished >2016年10月25日</time>
         
     </div>
     
@@ -142,39 +142,28 @@
                             <div class=article-body  itemprop=articleBody >
                                 
 
-                                <div class="notices info" ><p>数据下载：<a href="/datas/CN-border-La.dat">CN-border-La.dat</a> <a href="/datas/CN-capitals.dat">CN-capitals.dat</a></p>
+                                <div class="notices info" ><p>数据下载：<a href="/datas/CN-border-La.dat">CN-border-La.dat</a> <a href="/datas/CN-Rivers.dat">CN-Rivers.dat</a></p>
 </div>
 
 
-<p>本文整理并绘制了中国省会城市的分布图，同时展示了如何巧妙地利用 <code>pstext</code> 模块的功能来灵活地放置城市名的位置。</p>
-
-<p>绘图脚本如下：
-
+<p>
 
 
 <pre><code class="language-bash line-numbers">#!/bin/bash
 R=70/138/13/56
 J=M105/35/6.5i
-PS=CN-capitals.ps
+PS=CN-Rivers.ps
 
 gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
 gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
 gmt set FONT_ANNOT_PRIMARY 7p
-# 设置比例尺标签为35号中文字体
-gmt set FONT_LABEL 8p,35 MAP_LABEL_OFFSET 4p
 
 # 绘制中国地图
-gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10  -Lg85/17.5&#43;c17.5&#43;w800k&#43;f&#43;u&#43;l&#39;比例尺&#39; -K &gt; $PS
-gmt psxy CN-border-La.dat -J$J -R$R -W0.4p,gray50 -K -O &gt;&gt; $PS
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&#43;c17.5&#43;w800k&#43;f&#43;u -K &gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O -K &gt;&gt; $PS
 
-# 绘制省会位置
-## 此处使用两次 psxy 命令以实现图中所示的空心圆叠加实心圆的效果
-gmt psxy CN-capitals.dat -J$J -R$R -Sc0.08c -Gblack -K -O &gt;&gt; $PS
-gmt psxy CN-capitals.dat -J$J -R$R -Sc0.15c -W0.2p,black -K -O &gt;&gt; $PS
-# 绘制省会名称
-gmt pstext CN-capitals.dat -J$J -R$R -F&#43;f7p,35&#43;j -Dj0.15c/0.15c -K -O &gt;&gt; $PS
-# 标记北京所在位置
-echo 116.46 39.92 | gmt psxy -J$J -R$R -Gred -Sa0.4c -K -O &gt;&gt; $PS
+# 绘制一级河流数据
+gmt psxy CN-Rivers.dat -J$J -R$R -W1p,blue -K -O &gt;&gt; $PS
 
 # 绘制南海区域
 R=105/123/3/24
@@ -182,45 +171,20 @@ J=M1.1i
 gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &gt;&gt; $PS
 gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &gt;&gt; $PS
 gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &gt;&gt; $PS
-echo &#34;南海诸岛&#34; | gmt pstext -J$J -R$R -F&#43;f10p,35&#43;cBC -D0c/0.1c -N -Gwhite -O &gt;&gt; $PS
 
+gmt psxy -J$J -R$R -T -O &gt;&gt; $PS
 rm gmt.conf gmt.history
 </code></pre>
 </p>
 
-<p><code>pstext</code> 的 <code>-F</code> 选项参数为 <code>-F+f7p,35+j</code> ，即使用大小为 7p 的 35 号字体写城市名。由于使用了 <code>+j</code> 选项，因而输入文件需要有四列，分别是经度、纬度、文本对齐方式以及城市名，具体内容如下（此处为了节省空间，只显示了个别几个城市的数据）：</p>
-
-<pre><code># 经度    纬度   对齐方式  城市名
-121.48   31.22    ML    上海
-...
-112.53   37.87    TC    太原
-...
-101.74   36.56    MR    西宁
-...
-117.27   31.86    CB    合肥
-</code></pre>
-
-<p><code>pstext</code> 默认会将城市名放在城市所在处，因而要使用 <code>-D&lt;dx&gt;/&lt;dy&gt;</code> 选项将城市名沿着X和Y方向分别移动 <code>&lt;dx&gt;</code> 和 <code>&lt;dy&gt;</code>。上面的示例中使用了 <code>-Dj0.15c/0.15c</code>，关键在于其中 <code>j</code> 的使用，其使得文本会沿着文本对齐方式所定义的方向移动。比如：</p>
-
-<ol>
-<li>“上海”的对齐方式是 <code>ML</code>（即 <strong>M</strong>iddle <strong>L</strong>eft），<code>-Dj0.15c/0.15c</code> 使得“上海”向右移动了 0.15 厘米
-<li>“西宁”的对齐方式是 <code>MR</code>（即 <strong>M</strong>iddle <strong>R</strong>ight），<code>-Dj0.15c/0.15c</code> 使得“太原”向左移动了 0.15 厘米
-<li>“太原”的对齐方式是 <code>TC</code>（即 <strong>T</strong>op <strong>C</strong>enter），<code>-Dj0.15c/0.15c</code> 使得“太原”向下移动了 0.15 厘米
-<li>“合肥”的对齐方式是 <code>BC</code>（即 <strong>B</strong>ottom <strong>C</strong>enter），<code>-Dj0.15c/0.15c</code> 使得“西宁”向上移动了 0.15 厘米
-</ol>
-
-<p>你也可以尝试以下其他对齐方式下 <code>-Dj</code> 的具体效果。</p>
-
-<p>最终绘图效果如下图：</p>
-
 <p>
 <figure >
     
-        <img src="/example/ex004/CN-capitals.png" />
+        <img src="/example/ex008/CN-Rivers.png" />
     
     
     <figcaption>
-        <h4>中国省会城市分布图</h4>
+        <h4>中国一级河流</h4>
         
     </figcaption>
     
@@ -237,22 +201,15 @@ rm gmt.conf gmt.history
     <ul class=pager >
         
         <li class=previous >
-            <a href="http://gmt-china.org/example/ex003/">
+            <a href="http://gmt-china.org/example/ex007/">
                 <strong class=article-nav-caption >
                 上一篇
                 </strong>
-                <div class=article-nav-title >中国国界、省界及九段线</div>
+                <div class=article-nav-title >中国断层数据</div>
             </a>
         
         
 
-        
-        <li class=next >
-            <a href="http://gmt-china.org/example/ex005/">
-                <strong class=article-nav-caption >下一篇</strong>
-                <div class=article-nav-title >中国地震区域划分</div>
-            </a>
-        
         
     </ul>
 </nav>

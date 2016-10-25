@@ -9,8 +9,251 @@
     <managingEditor>admin@gmt-china.org (GMT 中文社区)</managingEditor>
     <webMaster>admin@gmt-china.org (GMT 中文社区)</webMaster>
     <copyright>Powered by [Hugo](https://gohugo.io) &amp; Hosted by [GitHub](https://github.com/gmt-china/gmt-china.org).</copyright>
-    <lastBuildDate>Mon, 24 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Oct 2016 15:30:00 +0000</lastBuildDate>
     <atom:link href="http://gmt-china.org/example/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>中国一级河流数据</title>
+      <link>http://gmt-china.org/example/ex008/</link>
+      <pubDate>Tue, 25 Oct 2016 15:30:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex008/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-Rivers.dat&#34;&gt;CN-Rivers.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=70/138/13/56
+J=M105/35/6.5i
+PS=CN-Rivers.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O -K &amp;gt;&amp;gt; $PS
+
+# 绘制一级河流数据
+gmt psxy CN-Rivers.dat -J$J -R$R -W1p,blue -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+
+gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex008/CN-Rivers.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国一级河流&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>中国断层数据</title>
+      <link>http://gmt-china.org/example/ex007/</link>
+      <pubDate>Tue, 25 Oct 2016 14:50:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex007/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-faults.dat&#34;&gt;CN-faults.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;断层数据来源于邓起东院士。&lt;/p&gt;
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=70/138/13/56
+J=M105/35/6.5i
+PS=CN-faults.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O -K &amp;gt;&amp;gt; $PS
+
+# 绘制断层数据
+gmt psxy CN-faults.dat -J$J -R$R -W0.5p,blue -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+
+gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex007/CN-faults.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国断层线&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>中国铁路线</title>
+      <link>http://gmt-china.org/example/ex006/</link>
+      <pubDate>Tue, 25 Oct 2016 14:34:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex006/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-Railways.dat&#34;&gt;CN-Railways.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;铁路线数据来源于 MapSIS。&lt;/p&gt;
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=70/138/13/56
+J=M105/35/6.5i
+PS=CN-Railways.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.5p,gray -O -K &amp;gt;&amp;gt; $PS
+
+# 两次 psxy 命令使用不同的画笔属性以得到图中所示的铁轨效果
+gmt psxy CN-Railways.dat -J$J -R$R -W1.2p,black -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-Railways.dat -J$J -R$R -W0.8p,white,8_8: -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+
+gmt psxy -J$J -R$R -O -T &amp;gt;&amp;gt; $PS
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex006/CN-Railways.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国铁路线&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>中国地震区域划分</title>
+      <link>http://gmt-china.org/example/ex005/</link>
+      <pubDate>Tue, 25 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex005/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-EQRegion.dat&#34;&gt;CN-EQRegion.dat&lt;/a&gt;
+&lt;a href=&#34;http://gmt-china.org/datas/CN-EQRegion-name.dat&#34;&gt;CN-EQRegion-name.dat&lt;/a&gt;
+&lt;a href=&#34;http://gmt-china.org/datas/CN-EQSubRegion.dat&#34;&gt;CN-EQSubRegion.dat&lt;/a&gt;
+&lt;a href=&#34;http://gmt-china.org/datas/CN-EQSubRegion-name.dat&#34;&gt;CN-EQSubRegion-name.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;本文提供了中国地震区划数据。&lt;/p&gt;
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=65/145/12/56
+J=M105/6.5i
+PS=CN-EQRegion.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&amp;#43;c17.5&amp;#43;w500k&amp;#43;f&amp;#43;u -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0p,gray70 -O -K &amp;gt;&amp;gt; $PS
+
+# 绘制地震亚区
+gmt psxy CN-EQSubRegion.dat -J$J -R$R -W1p,blue -K -O &amp;gt;&amp;gt; $PS
+gmt pstext CN-EQSubRegion-name.dat -J$J -R$R -F&amp;#43;f8p,35,blue -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制地震区
+gmt psxy CN-EQRegion.dat -J$J -R$R -W1p,red -K -O &amp;gt;&amp;gt; $PS
+gmt pstext CN-EQRegion-name.dat -J$J -R$R -F&amp;#43;f10p,35,red -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+echo &amp;#34;南海诸岛&amp;#34; | gmt pstext -J$J -R$R -F&amp;#43;f10p,35&amp;#43;cBC -D0c/0.1c -N -Gwhite -O &amp;gt;&amp;gt; $PS
+
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex005/CN-EQRegion.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国地震区域划分&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>中国省会城市分布图</title>
