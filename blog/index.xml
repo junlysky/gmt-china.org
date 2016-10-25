@@ -391,6 +391,8 @@ done
 &lt;p&gt;该镜像站点依托中国科学技术大学LUG服务器，是 GMT 在亚洲地区第二个镜像站，也是中国第一个镜像站。&lt;/p&gt;
 
 &lt;p&gt;镜像地址：&lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/&#34; target=&#34;_blank&#34;&gt;http://mirrors.ustc.edu.cn/gmt/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;进入 GMT 镜像即可直接下载 GMT 源码包，Windows/Mac 安装包位于镜像的 &lt;code&gt;bin&lt;/code&gt; 目录下。&lt;/p&gt;
 </description>
     </item>
     

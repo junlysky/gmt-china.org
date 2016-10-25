@@ -1,86 +1,86 @@
 <!DOCTYPE html>
-<html lang=zh-cmn-Hans >
+<html lang="zh-cmn-Hans">
 
-
-    <meta charset=utf-8 >
-    <meta http-equiv=X-UA-Compatible  content="IE=edge">
-    <meta name=viewport  content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name=generator  content="Hugo 0.17" />
-    <meta name=author  content="GMT 中文社区">
-    <meta name=description  content="面向 GMT 中文用户的小众社区">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.17" />
+    <meta name="author" content="GMT 中文社区">
+    <meta name="description" content="面向 GMT 中文用户的小众社区">
     <title>生成多页PS/PDF文件 | GMT 中文社区</title>
 
     
-    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel=stylesheet >
-    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel=stylesheet >
-    <link href="//cdn.bootcss.com/prism/1.5.1/themes/prism-solarizedlight.min.css" rel=stylesheet >
-    <link href="//cdn.bootcss.com/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.css" rel=stylesheet >
-    <link href="//cdn.bootcss.com/featherlight/1.5.0/featherlight.min.css" rel=stylesheet >
-    <link rel=stylesheet  href="http://gmt-china.org/css/style.css" />
-    <link rel=stylesheet  href="http://gmt-china.org/css/mobile.css" />
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/prism/1.5.1/themes/prism-solarizedlight.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/featherlight/1.5.0/featherlight.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://gmt-china.org/css/style.css" />
+    <link rel="stylesheet" href="http://gmt-china.org/css/mobile.css" />
 
     <link rel="shortcut icon" href="http://gmt-china.org/images/favicon.ico" type="image/x-icon" type="image/png" />
-<link rel=icon  href="http://gmt-china.org/images/apple-touch-icon-152x152.png" type="image/png" />
-<link rel=apple-touch-icon  href="http://gmt-china.org/images/apple-touch-icon.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=57x57  href="http://gmt-china.org/images/apple-touch-icon-57x57.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=72x72  href="http://gmt-china.org/images/apple-touch-icon-72x72.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=76x76  href="http://gmt-china.org/images/apple-touch-icon-76x76.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=114x114  href="http://gmt-china.org/images/apple-touch-icon-114x114.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=120x120  href="http://gmt-china.org/images/apple-touch-icon-120x120.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=144x144  href="http://gmt-china.org/images/apple-touch-icon-144x144.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=152x152  href="http://gmt-china.org/images/apple-touch-icon-152x152.png" type="image/png" />
-<link rel=apple-touch-icon  sizes=180x180  href="http://gmt-china.org/images/apple-touch-icon-180x180.png" type="image/png" />
-<meta name=msapplication-TileImage  content="http://gmt-china.org/images/apple-touch-icon-144x144.png"/>
-<meta name=msapplication-TileColor  content="#d83434"/>
+<link rel="icon" href="http://gmt-china.org/images/apple-touch-icon-152x152.png" type="image/png" />
+<link rel="apple-touch-icon" href="http://gmt-china.org/images/apple-touch-icon.png"  type="image/png" />
+<link rel="apple-touch-icon" sizes="57x57" href="http://gmt-china.org/images/apple-touch-icon-57x57.png" type="image/png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://gmt-china.org/images/apple-touch-icon-72x72.png" type="image/png" />
+<link rel="apple-touch-icon" sizes="76x76" href="http://gmt-china.org/images/apple-touch-icon-76x76.png" type="image/png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://gmt-china.org/images/apple-touch-icon-114x114.png" type="image/png" />
+<link rel="apple-touch-icon" sizes="120x120" href="http://gmt-china.org/images/apple-touch-icon-120x120.png" type="image/png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://gmt-china.org/images/apple-touch-icon-144x144.png" type="image/png" />
+<link rel="apple-touch-icon" sizes="152x152" href="http://gmt-china.org/images/apple-touch-icon-152x152.png" type="image/png" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://gmt-china.org/images/apple-touch-icon-180x180.png" type="image/png" />
+<meta name="msapplication-TileImage" content="http://gmt-china.org/images/apple-touch-icon-144x144.png"/>
+<meta name="msapplication-TileColor" content="#d83434"/>
 
 
     
+</head>
 
 
-
-
-    <div class=container >
-        <header id=header >
-    <div class=outer >
+<body>
+    <div class="container">
+        <header id="header">
+    <div class="outer">
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class=container-fluid >
-                <div class=navbar-header >
-                    <button type=button  class="navbar-toggle collapsed" data-toggle=collapse  data-target="#navbar-collapse-menu" aria-expanded=false >
-          	                <span class=sr-only >Toggle navigation</span>
-          	                <span class=icon-bar ></span>
-          	                <span class=icon-bar ></span>
-          	                <span class=icon-bar ></span>
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-menu" aria-expanded="false">
+          	                <span class="sr-only">Toggle navigation</span>
+          	                <span class="icon-bar"></span>
+          	                <span class="icon-bar"></span>
+          	                <span class="icon-bar"></span>
           	            </button>
-    		            <a class=navbar-brand  href="http://gmt-china.org/">
-    			            <span class=site-title >GMT 中文社区</span>
+    		            <a class="navbar-brand" href="http://gmt-china.org/">
+    			            <span class="site-title">GMT 中文社区</span>
     		            </a>
                 </div>
 
-                <div class="collapse navbar-collapse" id=navbar-collapse-menu >
+                <div class="collapse navbar-collapse" id="navbar-collapse-menu">
                     <ul class="nav navbar-nav navbar-right">
                         
                         
-                        <li class=nav-item ><a href="/">首页</a>
+                        <li class="nav-item"><a href="/">首页</a></li>
                         
-                        <li class=nav-item ><a href="/docs/">文档</a>
+                        <li class="nav-item"><a href="/docs/">文档</a></li>
                         
-                        <li class=nav-item ><a href="/gallery/">图库</a>
+                        <li class="nav-item"><a href="/gallery/">图库</a></li>
                         
-                        <li class=nav-item ><a href="/blog/">博客</a>
+                        <li class="nav-item"><a href="/blog/">博客</a></li>
                         
-                        <li class=nav-item ><a href="/download/">下载</a>
+                        <li class="nav-item"><a href="/download/">下载</a></li>
                         
-                        <li class=nav-item ><a href="/authors/">贡献者</a>
+                        <li class="nav-item"><a href="/authors/">贡献者</a></li>
                         
-                        <li class=nav-item ><a href="/about/">关于</a>
+                        <li class="nav-item"><a href="/about/">关于</a></li>
                         
                         
                         
-                        <li class=nav-item ><a href="https://github.com/gmt-china"><i class="fa fa-github fa-lg" aria-hidden=true ></i></a>
+                        <li class="nav-item"><a href="https://github.com/gmt-china"><i class="fa fa-github fa-lg" aria-hidden="true"></i></a></li>
                         
-                        <li class=nav-item ><a href="mailto:admin@gmt-china.org"><i class="fa fa-envelope fa-lg" aria-hidden=true ></i></a>
+                        <li class="nav-item"><a href="mailto:admin@gmt-china.org"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
                         
-                        <li><a href="http://gmt-china.org/index.xml"><i class="fa fa-rss-square fa-lg" aria-hidden=true ></i></a>
+                        <li><a href="http://gmt-china.org/index.xml"><i class="fa fa-rss-square fa-lg" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -89,25 +89,25 @@
 </header>
 
 
-        <div id=body >
-            <div class=outer >
-                <section id=main >
+        <div id="body">
+            <div class="outer">
+                <section id="main">
                     <article>
-                        <div class=article-inner >
-                            <header class=article-header >
-    <h1 class=article-title  itemprop=name >
-	<a href="http://gmt-china.org/blog/multipage-ps/" class=permalink >生成多页PS/PDF文件</a>
+                        <div class="article-inner">
+                            <header class="article-header">
+    <h1 class="article-title" itemprop="name">
+	<a href="http://gmt-china.org/blog/multipage-ps/" class="permalink">生成多页PS/PDF文件</a>
     </h1>
 
     
-    <div class=article-meta >
+    <div class="article-meta">
         
         
         
-        <div class=article-category >
+        <div class="article-category">
             <i class="fa fa-sitemap"></i>
             
-            <a class=article-category-link  href="http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7">GMT技巧</a>
+            <a class="article-category-link" href="http://gmt-china.org/categories/GMT%E6%8A%80%E5%B7%A7">GMT技巧</a>
             
             
         </div>
@@ -117,10 +117,10 @@
         
         
         
-        <div class=article-category >
+        <div class="article-category">
 		<i class="fa fa-tags"></i>
             
-            <a class=article-category-link  href="http://gmt-china.org/tags/psconvert">psconvert</a>
+            <a class="article-category-link" href="http://gmt-china.org/tags/psconvert">psconvert</a>
             
             
         </div>
@@ -130,10 +130,10 @@
         
         
         
-        <div class=article-category >
+        <div class="article-category">
             <i class="fa fa-user"></i>
             
-            <a class=article-category-link  href="http://gmt-china.org/authors/seisman">seisman</a>
+            <a class="article-category-link" href="http://gmt-china.org/authors/seisman">seisman</a>
             
             
         </div>
@@ -141,13 +141,13 @@
         
 
         
-        <time class=article-date  datetime="2016-10-12 00:00:00 &#43;0000 UTC" itemprop=datePublished >2016年10月12日</time>
+        <time class="article-date" datetime="2016-10-12 00:00:00 &#43;0000 UTC" itemprop="datePublished">2016年10月12日</time>
         
     </div>
     
 </header>
 
-                            <div class=article-body  itemprop=articleBody >
+                            <div class="article-body" itemprop="articleBody">
                                 
 
                                 <p>通常，在使用GMT画图时都是一个PS文件中保存一张图。因而，在需要画很多张同类型的图时，就需要生成很多个PS文件。比如要画1000个台站的波形数据，每张图只能放下20个波形，那么就需要写个循环画50张图，最终得到50个PS文件。有没有可能生成一个多页文件，每一页一张图呢？</p>
@@ -157,7 +157,7 @@
 
 <p>另一种做法是，直接生成一个多页PS文件，也就是把原来的脚本做小小的修改，使得所有绘图命令的输出都重定向到同一个PS文件中。比如，下面这个示例代码会生成10个PS文件，每个PS文件上写一个数字：</p>
 
-<pre><code class=language-bash >#!/bin/bash
+<pre><code class="language-bash">#!/bin/bash
 
 J=X10c/10c
 R=0/10/0/10
@@ -171,7 +171,7 @@ done
 
 <p>对上面的代码做一点微小的改动：</p>
 
-<pre><code class=language-bash >#!/bin/bash
+<pre><code class="language-bash">#!/bin/bash
 
 J=X10c/10c
 R=0/10/0/10
@@ -189,9 +189,9 @@ done
 <p>改动主要有三点：</p>
 
 <ol>
-<li>将变量 <code>PS</code> 的定义放在了循环外部，意味着所有命令的输出都会保存到一个PS文件中
-<li>第一个绘图命令的 <code>&gt;</code> 改成了 <code>&gt;&gt;</code> ，以保证每次循环时不会新建PS文件
-<li>循环开始前判断PS文件是否存在，若存在则删除，以避免多次执行脚本时将多次执行的结果写到同一个文件中
+<li>将变量 <code>PS</code> 的定义放在了循环外部，意味着所有命令的输出都会保存到一个PS文件中</li>
+<li>第一个绘图命令的 <code>&gt;</code> 改成了 <code>&gt;&gt;</code> ，以保证每次循环时不会新建PS文件</li>
+<li>循环开始前判断PS文件是否存在，若存在则删除，以避免多次执行脚本时将多次执行的结果写到同一个文件中</li>
 </ol>
 
 <p>经过这样的改动之后，就生成了一个多页PS文件。可以使用<code>gmt psconvert -Tf map.ps</code>
@@ -202,31 +202,31 @@ done
 
 
                             </div>
-                            <footer class=article-footer >
+                            <footer class="article-footer">
 </footer>
 
                         </div>
                         
 <nav>
-    <ul class=pager >
+    <ul class="pager">
         
-        <li class=previous >
+        <li class="previous">
             <a href="http://gmt-china.org/blog/GUD-20160921/">
-                <strong class=article-nav-caption >
+                <strong class="article-nav-caption">
                 上一篇
                 </strong>
-                <div class=article-nav-title >GMT中文社区第二次线下聚餐</div>
+                <div class="article-nav-title">GMT中文社区第二次线下聚餐</div>
             </a>
-        
+        </li>
         
 
         
-        <li class=next >
+        <li class="next">
             <a href="http://gmt-china.org/blog/numbering-subfigures/">
-                <strong class=article-nav-caption >下一篇</strong>
-                <div class=article-nav-title >为子图添加编号</div>
+                <strong class="article-nav-caption">下一篇</strong>
+                <div class="article-nav-title">为子图添加编号</div>
             </a>
-        
+        </li>
         
     </ul>
 </nav>
@@ -236,14 +236,14 @@ done
                 </section>
             </div>
         </div>
-        <footer id=footer  class=footer >
-    <div class=copyright >
+        <footer id="footer" class="footer">
+    <div class="copyright">
         &copy; 
-        <span itemprop=copyrightYear > 2016</span>
-        <span class=with-love ><i class="fa fa-heart"></i></span>
-        <span class=author  itemprop=copyrightHolder >GMT 中文社区</span>
+        <span itemprop="copyrightYear"> 2016</span>
+        <span class="with-love"><i class="fa fa-heart"></i></span>
+        <span class="author" itemprop="copyrightHolder">GMT 中文社区</span>
     </div>
-    <div class=powered-by >Powered by <a href="https://gohugo.io" target=_blank >Hugo</a> &amp; Hosted by <a href="https://github.com/gmt-china/gmt-china.org" target=_blank >GitHub</a>.</div>
+    <div class="powered-by">Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> &amp; Hosted by <a href="https://github.com/gmt-china/gmt-china.org" target="_blank">GitHub</a>.</div>
 </footer>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -256,3 +256,5 @@ done
 
 
     </div>
+</body>
+</html>

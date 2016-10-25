@@ -12,6 +12,99 @@
     <atom:link href="http://gmt-china.org/authors/%E5%BF%86%E5%B0%A4/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>中国省会城市分布图</title>
+      <link>http://gmt-china.org/example/ex004/</link>
+      <pubDate>Mon, 24 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex004/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/datas/CN-border-La.dat&#34;&gt;CN-border-La.dat&lt;/a&gt; &lt;a href=&#34;http://gmt-china.org/datas/CN-capitals.dat&#34;&gt;CN-capitals.dat&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;本文整理并绘制了中国省会城市的分布图，同时展示了如何巧妙地利用 &lt;code&gt;pstext&lt;/code&gt; 模块的功能来灵活地放置城市名的位置。&lt;/p&gt;
+
+&lt;p&gt;绘图脚本如下：
+
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+R=70/138/13/56
+J=M105/35/6.5i
+PS=CN-capitals.ps
+
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
+gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
+gmt set FONT_ANNOT_PRIMARY 7p
+# 设置比例尺标签为35号中文字体
+gmt set FONT_LABEL 8p,35 MAP_LABEL_OFFSET 4p
+
+# 绘制中国地图
+gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10  -Lg85/17.5&amp;#43;c17.5&amp;#43;w800k&amp;#43;f&amp;#43;u&amp;#43;l&amp;#39;比例尺&amp;#39; -K &amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.4p,gray50 -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制省会位置
+## 此处使用两次 psxy 命令以实现图中所示的空心圆叠加实心圆的效果
+gmt psxy CN-capitals.dat -J$J -R$R -Sc0.08c -Gblack -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-capitals.dat -J$J -R$R -Sc0.15c -W0.2p,black -K -O &amp;gt;&amp;gt; $PS
+# 绘制省会名称
+gmt pstext CN-capitals.dat -J$J -R$R -F&amp;#43;f7p,35&amp;#43;j -Dj0.15c/0.15c -K -O &amp;gt;&amp;gt; $PS
+# 标记北京所在位置
+echo 116.46 39.92 | gmt psxy -J$J -R$R -Gred -Sa0.4c -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制南海区域
+R=105/123/3/24
+J=M1.1i
+gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &amp;gt;&amp;gt; $PS
+gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &amp;gt;&amp;gt; $PS
+gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &amp;gt;&amp;gt; $PS
+echo &amp;#34;南海诸岛&amp;#34; | gmt pstext -J$J -R$R -F&amp;#43;f10p,35&amp;#43;cBC -D0c/0.1c -N -Gwhite -O &amp;gt;&amp;gt; $PS
+
+rm gmt.conf gmt.history
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pstext&lt;/code&gt; 的 &lt;code&gt;-F&lt;/code&gt; 选项参数为 &lt;code&gt;-F+f7p,35+j&lt;/code&gt; ，即使用大小为 7p 的 35 号字体写城市名。由于使用了 &lt;code&gt;+j&lt;/code&gt; 选项，因而输入文件需要有四列，分别是经度、纬度、文本对齐方式以及城市名，具体内容如下（此处为了节省空间，只显示了个别几个城市的数据）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# 经度    纬度   对齐方式  城市名
+121.48   31.22    ML    上海
+...
+112.53   37.87    TC    太原
+...
+101.74   36.56    MR    西宁
+...
+117.27   31.86    CB    合肥
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;pstext&lt;/code&gt; 默认会将城市名放在城市所在处，因而要使用 &lt;code&gt;-D&amp;lt;dx&amp;gt;/&amp;lt;dy&amp;gt;&lt;/code&gt; 选项将城市名沿着X和Y方向分别移动 &lt;code&gt;&amp;lt;dx&amp;gt;&lt;/code&gt; 和 &lt;code&gt;&amp;lt;dy&amp;gt;&lt;/code&gt;。上面的示例中使用了 &lt;code&gt;-Dj0.15c/0.15c&lt;/code&gt;，关键在于其中 &lt;code&gt;j&lt;/code&gt; 的使用，其使得文本会沿着文本对齐方式所定义的方向移动。比如：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;“上海”的对齐方式是 &lt;code&gt;ML&lt;/code&gt;（即 &lt;strong&gt;M&lt;/strong&gt;iddle &lt;strong&gt;L&lt;/strong&gt;eft），&lt;code&gt;-Dj0.15c/0.15c&lt;/code&gt; 使得“上海”向右移动了 0.15 厘米&lt;/li&gt;
+&lt;li&gt;“西宁”的对齐方式是 &lt;code&gt;MR&lt;/code&gt;（即 &lt;strong&gt;M&lt;/strong&gt;iddle &lt;strong&gt;R&lt;/strong&gt;ight），&lt;code&gt;-Dj0.15c/0.15c&lt;/code&gt; 使得“太原”向左移动了 0.15 厘米&lt;/li&gt;
+&lt;li&gt;“太原”的对齐方式是 &lt;code&gt;TC&lt;/code&gt;（即 &lt;strong&gt;T&lt;/strong&gt;op &lt;strong&gt;C&lt;/strong&gt;enter），&lt;code&gt;-Dj0.15c/0.15c&lt;/code&gt; 使得“太原”向下移动了 0.15 厘米&lt;/li&gt;
+&lt;li&gt;“合肥”的对齐方式是 &lt;code&gt;BC&lt;/code&gt;（即 &lt;strong&gt;B&lt;/strong&gt;ottom &lt;strong&gt;C&lt;/strong&gt;enter），&lt;code&gt;-Dj0.15c/0.15c&lt;/code&gt; 使得“西宁”向上移动了 0.15 厘米&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;你也可以尝试以下其他对齐方式下 &lt;code&gt;-Dj&lt;/code&gt; 的具体效果。&lt;/p&gt;
+
+&lt;p&gt;最终绘图效果如下图：&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex004/CN-capitals.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;中国省会城市分布图&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>中国国界、省界及九段线</title>
       <link>http://gmt-china.org/example/ex003/</link>
       <pubDate>Sun, 23 Oct 2016 00:00:00 +0000</pubDate>
@@ -269,6 +362,8 @@ Region  1
 &lt;p&gt;该镜像站点依托中国科学技术大学LUG服务器，是 GMT 在亚洲地区第二个镜像站，也是中国第一个镜像站。&lt;/p&gt;
 
 &lt;p&gt;镜像地址：&lt;a href=&#34;http://mirrors.ustc.edu.cn/gmt/&#34; target=&#34;_blank&#34;&gt;http://mirrors.ustc.edu.cn/gmt/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;进入 GMT 镜像即可直接下载 GMT 源码包，Windows/Mac 安装包位于镜像的 &lt;code&gt;bin&lt;/code&gt; 目录下。&lt;/p&gt;
 </description>
     </item>
     
