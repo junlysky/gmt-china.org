@@ -12,6 +12,46 @@
     <atom:link href="http://gmt-china.org/categories/GMT%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Windows 下可用的 Unix 工具</title>
+      <link>http://gmt-china.org/blog/unix-tools-for-windows/</link>
+      <pubDate>Sat, 29 Oct 2016 00:00:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/blog/unix-tools-for-windows/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;下载地址：&lt;a href=&#34;http://gmt-china.org/datas/UnixTools.zip&#34;&gt;UnixTools.zip&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;为满足 Windows 下的 GMT 用户对 Linux 工具的需求，我们将常用的 Linux 工具打包供 Windows 用户下载使用。&lt;/p&gt;
+
+&lt;p&gt;直接下载 &lt;a href=&#34;http://gmt-china.org/datas/UnixTools.zip&#34;&gt;UnixTools.zip&lt;/a&gt; 并将解压得到的 exe 文件复制到 GMT 的 bin 目录即可（比如默认的 &lt;code&gt;C:\programs\gmt5\bin&lt;/code&gt; ）。&lt;/p&gt;
+
+&lt;p&gt;软件包中包含如下程序：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;cat&lt;/code&gt;：显示文件内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cut&lt;/code&gt;：从指定文本中截取文本并输出至标准输出&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gawk&lt;/code&gt;：处理文本信息的编程语言工具&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;grep&lt;/code&gt;：从指定文本或标准输入中识别并截取出特定字段等&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;head&lt;/code&gt;：输出一个或多个指定文本的前n行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;join&lt;/code&gt;：将两个文件中文本一致的行连接并输出&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;md5sum&lt;/code&gt;：检验文本的MD5摘要&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;paste&lt;/code&gt;：并排输出两个文件的内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;printf&lt;/code&gt;：按C语言格式输出文本&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sed&lt;/code&gt;：文本处理工具&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sort&lt;/code&gt;：对文本文档进行排序&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;split&lt;/code&gt;：以行为单位切割文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tail&lt;/code&gt;：显示文件尾端的n行数据&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uniq&lt;/code&gt;：从文本中去除或禁止重复行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wc&lt;/code&gt;：输出指定文件的行数、字数和文本数据大小&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;以上 Unix 工具均提取自 &lt;a href=&#34;http://www.ms4w.com&#34; target=&#34;_blank&#34;&gt;MS4W&lt;/a&gt; 。&lt;/p&gt;
+
+&lt;p&gt;如果你发现某些工具存在问题，或者觉得有其他需要的 Unix 工具没有被包含进来，请向我们反馈，我们会酌情考虑。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>MIF2GMT：将MIF转换为GMT可用的数据格式</title>
       <link>http://gmt-china.org/blog/mif2gmt/</link>
       <pubDate>Tue, 18 Oct 2016 00:00:00 +0000</pubDate>
