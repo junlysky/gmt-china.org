@@ -12,6 +12,62 @@
     <atom:link href="http://gmt-china.org/categories/GMT%E7%A4%BA%E4%BE%8B/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>绘制晨昏线及太阳位置</title>
+      <link>http://gmt-china.org/example/ex009/</link>
+      <pubDate>Tue, 01 Nov 2016 00:30:00 +0000</pubDate>
+      <author>admin@gmt-china.org (GMT 中文社区)</author>
+      <guid>http://gmt-china.org/example/ex009/</guid>
+      <description>&lt;div class=&#34;notices info&#34; &gt;&lt;p&gt;数据下载：&lt;a href=&#34;http://gmt-china.org/example/ex009/sunglasses.eps&#34;&gt;sunglasses.eps&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;本文利用 GMT 5.3 中新增的 &lt;code&gt;pssolar&lt;/code&gt; 模块绘制了晨昏线并计算得到太阳的位置，同时利用 &lt;code&gt;psxy&lt;/code&gt; 的新增功能，直接将 &lt;code&gt;eps&lt;/code&gt; 格式的太阳图片绘制在指定位置。&lt;/p&gt;
+
+&lt;p&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-bash line-numbers&#34;&gt;#!/bin/bash
+# 绘制指定时间晨昏线，太阳位置
+
+PS=solar.ps
+
+# 绘制全球底图及海陆分布
+gmt pscoast -Rd -JKs0/10i -Dl -A5000 -W0.5p -N1/0.5p,gray -S175/210/255 -Bafg --MAP_FRAME_TYPE=plain -K &amp;gt; $PS
+
+# 绘制晨昏线
+gmt pssolar -R  -J -Td&amp;#43;d2016-02-09T16:00:00 -Gnavy@95 -K -O &amp;gt;&amp;gt; $PS
+
+# 绘制不同定义的晨昏区
+gmt pssolar -R  -J -Tc&amp;#43;d2016-02-09T16:00:00 -Gnavy@85 -K -O &amp;gt;&amp;gt; $PS
+gmt pssolar -R  -J -Tn&amp;#43;d2016-02-09T16:00:00 -Gnavy@80 -K -O &amp;gt;&amp;gt; $PS
+gmt pssolar -R  -J -Ta&amp;#43;d2016-02-09T16:00:00 -Gnavy@80 -K -O &amp;gt;&amp;gt; $PS
+
+# 计算指定时间太阳位置并绘制在底图上
+gmt pssolar -I&amp;#43;d2016-02-09T16:00:00 -C | gmt psxy -R -J -Sksunglasses/1.5c -Gyellow -O &amp;gt;&amp;gt; $PS
+
+rm gmt.*
+# 转换为PDF文件查看透明效果
+#gmt psconvert $ps -A -Tf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://gmt-china.org/example/ex009/solar.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;绘制晨昏线&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>中国一级河流数据</title>
       <link>http://gmt-china.org/example/ex008/</link>
       <pubDate>Tue, 25 Oct 2016 15:30:00 +0000</pubDate>

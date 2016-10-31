@@ -8,7 +8,7 @@
     <meta name=generator  content="Hugo 0.17" />
     <meta name=author  content="GMT 中文社区">
     <meta name=description  content="面向 GMT 中文用户的小众社区">
-    <title>中国一级河流数据 | GMT 中文社区</title>
+    <title>绘制晨昏线及太阳位置 | GMT 中文社区</title>
 
     
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel=stylesheet >
@@ -96,7 +96,7 @@
                         <div class=article-inner >
                             <header class=article-header >
     <h1 class=article-title  itemprop=name >
-	<a href="http://gmt-china.org/example/ex008/" class=permalink >中国一级河流数据</a>
+	<a href="http://gmt-china.org/example/ex009/" class=permalink >绘制晨昏线及太阳位置</a>
     </h1>
 
     
@@ -108,9 +108,6 @@
             <i class="fa fa-sitemap"></i>
             
             <a class=article-category-link  href="http://gmt-china.org/categories/GMT%E7%A4%BA%E4%BE%8B">GMT示例</a>
-            ,
-            
-            <a class=article-category-link  href="http://gmt-china.org/categories/%E5%9C%B0%E5%AD%A6%E6%95%B0%E6%8D%AE">地学数据</a>
             
             
         </div>
@@ -125,7 +122,7 @@
         <div class=article-category >
             <i class="fa fa-user"></i>
             
-            <a class=article-category-link  href="http://gmt-china.org/authors/%E5%BF%86%E5%B0%A4">忆尤</a>
+            <a class=article-category-link  href="http://gmt-china.org/authors/%E8%99%8E%E5%93%A5">虎哥</a>
             
             
         </div>
@@ -133,7 +130,7 @@
         
 
         
-        <time class=article-date  datetime="2016-10-25 15:30:00 &#43;0000 UTC" itemprop=datePublished >2016年10月25日</time>
+        <time class=article-date  datetime="2016-11-01 00:30:00 &#43;0000 UTC" itemprop=datePublished >2016年11月01日</time>
         
     </div>
     
@@ -142,49 +139,48 @@
                             <div class=article-body  itemprop=articleBody >
                                 
 
-                                <div class="notices info" ><p>数据下载：<a href="/datas/CN-border-La.dat">CN-border-La.dat</a> <a href="/datas/CN-Rivers.dat">CN-Rivers.dat</a></p>
+                                <div class="notices info" ><p>数据下载：<a href="/example/ex009/sunglasses.eps">sunglasses.eps</a></p>
 </div>
 
+
+<p>本文利用 GMT 5.3 中新增的 <code>pssolar</code> 模块绘制了晨昏线并计算得到太阳的位置，同时利用 <code>psxy</code> 的新增功能，直接将 <code>eps</code> 格式的太阳图片绘制在指定位置。</p>
 
 <p>
 
 
 <pre><code class="language-bash line-numbers">#!/bin/bash
-R=70/138/13/56
-J=M105/35/6.5i
-PS=CN-Rivers.ps
+# 绘制指定时间晨昏线，太阳位置
 
-gmt set MAP_GRID_PEN_PRIMARY 0.25p,gray,2_2:1
-gmt set FORMAT_GEO_MAP ddd:mm:ssF MAP_FRAME_WIDTH 3p
-gmt set FONT_ANNOT_PRIMARY 7p
+PS=solar.ps
 
-# 绘制中国地图
-gmt pscoast -J$J -R$R -G244/243/239 -S167/194/223 -B10f5g10 -Lg85/17.5&#43;c17.5&#43;w800k&#43;f&#43;u -K &gt; $PS
-gmt psxy CN-border-La.dat -J$J -R$R -W0.5p -O -K &gt;&gt; $PS
+# 绘制全球底图及海陆分布
+gmt pscoast -Rd -JKs0/10i -Dl -A5000 -W0.5p -N1/0.5p,gray -S175/210/255 -Bafg --MAP_FRAME_TYPE=plain -K &gt; $PS
 
-# 绘制一级河流数据
-gmt psxy CN-Rivers.dat -J$J -R$R -W1p,blue -K -O &gt;&gt; $PS
+# 绘制晨昏线
+gmt pssolar -R  -J -Td&#43;d2016-02-09T16:00:00 -Gnavy@95 -K -O &gt;&gt; $PS
 
-# 绘制南海区域
-R=105/123/3/24
-J=M1.1i
-gmt psbasemap -J$J -R$R -B0 -X5.4i --MAP_FRAME_TYPE=plain --MAP_FRAME_PEN=1p -K -O &gt;&gt; $PS
-gmt pscoast -J$J -R$R -N1/0.1p -W1/0.25p -G244/243/239 -S167/194/223 -K -O &gt;&gt; $PS
-gmt psxy CN-border-La.dat -J$J -R$R -W0.25p -O -K &gt;&gt; $PS
+# 绘制不同定义的晨昏区
+gmt pssolar -R  -J -Tc&#43;d2016-02-09T16:00:00 -Gnavy@85 -K -O &gt;&gt; $PS
+gmt pssolar -R  -J -Tn&#43;d2016-02-09T16:00:00 -Gnavy@80 -K -O &gt;&gt; $PS
+gmt pssolar -R  -J -Ta&#43;d2016-02-09T16:00:00 -Gnavy@80 -K -O &gt;&gt; $PS
 
-gmt psxy -J$J -R$R -T -O &gt;&gt; $PS
-rm gmt.conf gmt.history
+# 计算指定时间太阳位置并绘制在底图上
+gmt pssolar -I&#43;d2016-02-09T16:00:00 -C | gmt psxy -R -J -Sksunglasses/1.5c -Gyellow -O &gt;&gt; $PS
+
+rm gmt.*
+# 转换为PDF文件查看透明效果
+#gmt psconvert $ps -A -Tf
 </code></pre>
 </p>
 
 <p>
 <figure >
     
-        <img src="/example/ex008/CN-Rivers.png" />
+        <img src="/example/ex009/solar.png" />
     
     
     <figcaption>
-        <h4>中国一级河流</h4>
+        <h4>绘制晨昏线</h4>
         
     </figcaption>
     
@@ -201,22 +197,15 @@ rm gmt.conf gmt.history
     <ul class=pager >
         
         <li class=previous >
-            <a href="http://gmt-china.org/example/ex007/">
+            <a href="http://gmt-china.org/example/ex008/">
                 <strong class=article-nav-caption >
                 上一篇
                 </strong>
-                <div class=article-nav-title >中国断层数据</div>
+                <div class=article-nav-title >中国一级河流数据</div>
             </a>
         
         
 
-        
-        <li class=next >
-            <a href="http://gmt-china.org/example/ex009/">
-                <strong class=article-nav-caption >下一篇</strong>
-                <div class=article-nav-title >绘制晨昏线及太阳位置</div>
-            </a>
-        
         
     </ul>
 </nav>
