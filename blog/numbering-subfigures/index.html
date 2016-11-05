@@ -166,7 +166,7 @@ gmt psxy -J$J -R$R -T -O &gt;&gt; $PS
 <li><code>+cTL</code> 的作用是从 <code>-R</code> 选项中提取底图的左上角（<strong>T</strong>op <strong>L</strong>eft）作为当前字符串的坐标；
 <li>由于使用了 <code>+cTL</code>，因而 <code>pstext</code> 不再需要 XY 坐标信息，只需要给出字符串 <code>a</code>、<code>b</code> 即可；
 <li><code>+f15p,1</code> 将编号字号设置为 <code>15p</code>，1号字体（即粗体）
-<li>将编号放在左上角还不够，还需要使用 <code>-Dj-1c/-0.75c</code> 对编号的位置进行微调，此处表示将编号向左边移动 1 cm 向右移动 0.75 cm
+<li>将编号放在左上角还不够，还需要使用 <code>-Dj-1c/-0.75c</code> 对编号的位置进行微调，此处表示将编号向左边移动 1 cm 向上移动 0.75 cm
 <li>由于编号位于子图的外部，故而需要加上 <code>-N</code> 选项使得 <code>pstext</code> 绘制子图外部的字符串
 </ol>
 

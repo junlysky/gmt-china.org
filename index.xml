@@ -775,7 +775,7 @@ gmt psxy -J$J -R$R -T -O &amp;gt;&amp;gt; $PS
 &lt;li&gt;&lt;code&gt;+cTL&lt;/code&gt; 的作用是从 &lt;code&gt;-R&lt;/code&gt; 选项中提取底图的左上角（&lt;strong&gt;T&lt;/strong&gt;op &lt;strong&gt;L&lt;/strong&gt;eft）作为当前字符串的坐标；&lt;/li&gt;
 &lt;li&gt;由于使用了 &lt;code&gt;+cTL&lt;/code&gt;，因而 &lt;code&gt;pstext&lt;/code&gt; 不再需要 XY 坐标信息，只需要给出字符串 &lt;code&gt;a&lt;/code&gt;、&lt;code&gt;b&lt;/code&gt; 即可；&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;+f15p,1&lt;/code&gt; 将编号字号设置为 &lt;code&gt;15p&lt;/code&gt;，1号字体（即粗体）&lt;/li&gt;
-&lt;li&gt;将编号放在左上角还不够，还需要使用 &lt;code&gt;-Dj-1c/-0.75c&lt;/code&gt; 对编号的位置进行微调，此处表示将编号向左边移动 1 cm 向右移动 0.75 cm&lt;/li&gt;
+&lt;li&gt;将编号放在左上角还不够，还需要使用 &lt;code&gt;-Dj-1c/-0.75c&lt;/code&gt; 对编号的位置进行微调，此处表示将编号向左边移动 1 cm 向上移动 0.75 cm&lt;/li&gt;
 &lt;li&gt;由于编号位于子图的外部，故而需要加上 &lt;code&gt;-N&lt;/code&gt; 选项使得 &lt;code&gt;pstext&lt;/code&gt; 绘制子图外部的字符串&lt;/li&gt;
 &lt;/ol&gt;
 </description>
