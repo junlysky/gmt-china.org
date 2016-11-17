@@ -8,7 +8,7 @@
     <meta name=generator  content="Hugo 0.17" />
     <meta name=author  content="GMT 中文社区">
     <meta name=description  content="面向 GMT 中文用户的小众社区">
-    <title>MIF2GMT：将MIF转换为GMT可用的数据格式 | GMT 中文社区</title>
+    <title>GDAL/OGR: 地理空间数据格式转换神器 | GMT 中文社区</title>
 
     
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel=stylesheet >
@@ -96,7 +96,7 @@
                         <div class=article-inner >
                             <header class=article-header >
     <h1 class=article-title  itemprop=name >
-	<a href="http://gmt-china.org/blog/mif2gmt/" class=permalink >MIF2GMT：将MIF转换为GMT可用的数据格式</a>
+	<a href="http://gmt-china.org/blog/gdal-ogr/" class=permalink >GDAL/OGR: 地理空间数据格式转换神器</a>
     </h1>
 
     
@@ -133,10 +133,7 @@
         <div class=article-category >
             <i class="fa fa-user"></i>
             
-            <a class=article-category-link  href="http://gmt-china.org/authors/%E9%9F%A6%E8%BF%9B/">韦进</a>
-            ,
-            
-            <a class=article-category-link  href="http://gmt-china.org/authors/%E5%BF%86%E5%B0%A4/">忆尤</a>
+            <a class=article-category-link  href="http://gmt-china.org/authors/seisman/">seisman</a>
             
             
         </div>
@@ -144,7 +141,7 @@
         
 
         
-        <time class=article-date  datetime="2016-10-18 00:00:00 &#43;0000 UTC" itemprop=datePublished >2016年10月18日</time>
+        <time class=article-date  datetime="2016-11-17 00:00:00 &#43;0000 UTC" itemprop=datePublished >2016年11月17日</time>
         
     </div>
     
@@ -155,134 +152,119 @@
 
                                 
 
-<div class="notices info" ><p>程序下载： <a href="/datas/MIF2GMT.exe">MIF2GMT.exe</a> 源码：<a href="https://github.com/gmt-china/GMT_tools/tree/master/MIF2GMT" target=_blank >MIF2GMT</a></p>
+<p>GDAL/OGR 是一个地理空间数据的格式转换及处理工具。</p>
+
+<h2 id="简介">简介</h2>
+
+<p>官方主页: <a href="http://www.gdal.org" target=_blank >http://www.gdal.org</a></p>
+
+<p>GDAL/OGR 的核心分成两个部分：</p>
+
+<ul>
+<li>GDAL部分可以实现142种光栅数据格式间的互相转换，比如常见的 netCDF、GeoTiff、HDF5、XYZ 等，详见 <a href="http://www.gdal.org/formats_list.html" target=_blank >GDAL光栅格式列表</a>
+<li>ORG部分可以实现84种矢量数据格式间的互相转换，比如常见的 Shapefile、GMT、KML、MapInfo、Excel 等，详见 <a href="http://www.gdal.org/ogr_formats.html" target=_blank >OGR矢量格式列表</a>
+</ul>
+
+<h2 id="安装">安装</h2>
+
+<h3 id="linux-用户">Linux 用户</h3>
+
+<div class="notices warning" ><p>Linux 由于版本众多，以下仅供参考。如有差异，请到 <a href="https://pkgs.org" target=_blank >https://pkgs.org</a> 自行搜索。</p>
 </div>
 
 
-<p>工作中经常用到的一些数据，如断层、国界、省界、居民点，很多是MapInfo的TAB、MIF等文件格式，不能在GMT中直接使用，需要经过转换方可使用。</p>
+<p>CentOS/Fedora 用户:</p>
 
-<p>MIF2GMT 是一个将 MIF 格式的数据转换为 GMT 可用的 XY 格式的文本数据的小工具。此工具用 C# 写成，在 Windows 平台下可直接使用。</p>
-
-<h2 id="工具使用">工具使用</h2>
-
-<p>工具运行环境：Windows平台、.NET Framework 4.0 及以上。</p>
-
-<p>数据要求：此工具只支持MIF格式的数据。若原数据为MIF格式，则可直接使用。若原数据为TAB格式，则需要在MapInfo或其他软件中导出为MIF文件。</p>
-
-<p>下载软件后，直接运行 <code>MIT2GMT.exe</code>，选择一个或多个MIF文件，程序自动在该文件当前目录下生成同名XY文件。</p>
-
-<h2 id="原理">原理</h2>
-
-<h3 id="mapinfo数据格式">MapInfo数据格式</h3>
-
-<p>MapInfo 数据存储在包括 <code>*.TAB</code>、<code>*.DAT</code>（二进制）、<code>*.MAP</code>（二进制）、<code>*.ID</code>（二进制）为一组的文件中。分别存储着属性表结构、属性数据、空间数据和索引数据。</p>
-
-<p>MapInfo未公开其内部数据结构，我们只能用以MapInfo为基础平台的软件打开以上数据。对外数据交换由 <code>*.MIF</code> 和 <code>*.MID</code> 这一组文本文件完成。也就是说我们可以将 <code>*.TAB</code> 数据导出为 <code>*.MIF</code> 和 <code>*.MID</code>，并对这两个文件进行编辑和再处理。其中 <code>*.MIF</code> 保存着表结构和对象的空间信息（坐标、符号样式）、 <code>*.MID</code> 则按同样顺序保存对象的属性信息。</p>
-
-<h3 id="数据提取原理">数据提取原理</h3>
-
-<p><code>*.MIF</code> 文件包括文件头和数据区。由于我们关注的是表数据（尤其是坐标值），因此我们需要将 <code>*MIF</code> 中的数据部分提取出来。对于不同类型的表，数据的存储格式分别为：</p>
-
-<h4 id="点">点</h4>
-
-<p>点数据格式：</p>
-
-<pre><code>POINT x y
-&lt;SYMBOL (shape, color, size)&gt;
+<pre><code>sudo yum install gdal gdal-python
 </code></pre>
 
-<p>注： <code>&lt;&gt;</code> 表示可省略。</p>
+<p>Ubuntu/Debian 用户:</p>
 
-<p>例如：</p>
-
-<pre><code>***文件头***省略***
-
-Point 69.136757 34.530907
-    Symbol (41,8726016,10)
-Point 62.209999 34.459999
-    Symbol (41,8726016,10)
-Point 65.5 31.6
-    Symbol (41,8726016,10)
+<pre><code>sudo apt-get install gdal-bin python-gdal
 </code></pre>
 
-<h4 id="线">线</h4>
+<h3 id="macos-用户">macOS 用户</h3>
 
-<p>线数据格式：</p>
+<p>推荐使用 <a href="http://brew.sh/" target=_blank >Homebrew</a> 安装:</p>
 
-<pre><code>PLINE &lt;num&gt;
-x1 y1
-x2 y2
-...
-    &lt;PEN (width, pattern, color)&gt;
-    &lt;SMOOTH&gt;
+<pre><code>brew install gdal
 </code></pre>
 
-<p>例如：</p>
+<p>非 homebrew 用户也可以到 <a href="http://www.kyngchaos.com/software/frameworks" target=_blank >William Kyngesburye 的网站</a> 下载 dmg 安装包。</p>
 
-<pre><code>***文件头***省略***
+<h3 id="windows-用户">Windows 用户</h3>
 
-Pline 5
-86.44583 43.54956
-86.48676 43.54472
-86.53923 43.56675
-86.59575 43.58853
-86.6591 43.6133
-    Pen (2,2,16711680)
-    Smooth
-Pline 17
-86.58673 43.57684
-86.67906 43.56702
-86.77592 43.55147
-...
-</code></pre>
+<p>Windows 用户可以安装 <a href="https://trac.osgeo.org/osgeo4w/" target=_blank >OSGeo4W</a> 。使用方式步骤如下：</p>
 
-<h4 id="面数据">面数据</h4>
+<ol>
+<li>到官方网站下载 <a href="http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86.exe" target=_blank >32位</a> 或 <a href="http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe" target=_blank >64位</a> 安装包
+<li>双击=&gt;“Express Desktop Install”=&gt;选择下载地址=&gt;只勾选GDAL=&gt;等待下载安装完成（有经验的用户也可以选择“Advanced Install”以自定义安装）
+<li>安装完成会在桌面生成一个名为OSGeo4W的文件夹，双击文件夹内的快捷链接即可打开一个命令行窗口
+<li>命令行窗口中输入 <code>ogr2ogr --version</code> 以确认可以正常使用
+<li>如果只是偶尔使用，建议按照如上方式运行；如果是经常使用，可以将 <code>C:\OSGeo4W64\bin</code> 添加到 环境变量 PATH 中
+</ol>
 
-<p>面数据格式：</p>
-
-<pre><code>REGION &lt;num_region&gt;
-num_points
-x1 y1
-x2 y2
-...
-    &lt;PEN (width, pattern, color)&gt;
-    &lt;BRUSH (pattern, forecolor, backcolor)&gt;
-    &lt;CENTER x y&gt;
-</code></pre>
-
-<p>注： <code>num_region</code> 指多边形的数量，<code>num_points</code>指每个多边形节点的数量。</p>
-
-<p>例如：</p>
-
-<pre><code>***文件头***省略***
-...
-Region  1
-  5
-121.925263 25.446125
-121.927017 25.449965
-121.929497 25.452316
-121.935623 25.452707
-121.936172 25.450329
-    Pen (1,2,8421504)
-    Brush (2,16756991,16777215)
-    Center 120.935652 23.647805
-Region  1
-  15858
-109.278892 31.723522
-...
-</code></pre>
-
-<p>以上是基本图形的简化格式，一般我们只需要知道这一个文件的节点坐标，简单的做法就是识别坐标数据，属性部分替换为 <code>&gt;</code>，表示数据分段，最后输出文件。这也是 <code>MIF2GMT.exe</code> 所做的工作。</p>
-
-<h2 id="将来工作">将来工作</h2>
-
-<p>了解了MIF及MID数据格式后，还可以做的工作包括：</p>
+<p>如果由于某些原因无法使用 OSGeo4W，也可以尝试如下两个安装包：</p>
 
 <ul>
-<li>提取其中某段数据；
-<li>提取坐标以及图形线型、颜色属性；
-<li>提取MIF文件中的坐标值，MID文件中的属性值（如名称等），合并为一个数据；
-<li>等等等等
+<li><a href="http://www.ms4w.com/" target=_blank >MS4W</a>
+<li><a href="http://www.gisinternals.com/" target=_blank >GISInternals</a>
+</ul>
+
+<h2 id="使用">使用</h2>
+
+<p>GDAL/OGR 提供了几十个工具，每个工具用法也很丰富。此处只介绍常见工具的简单用法，详细用法请参考 <a href="http://www.gdal.org/gdal_utilities.html" target=_blank >GDAL工具列表</a> 和 <a href="http://www.gdal.org/ogr_utilities.html" target=_blank >OGR工具列表</a>。</p>
+
+<h3 id=ogr2ogr >ogr2ogr</h3>
+
+<p><code>ogr2ogr</code> 用于地理矢量数据格式之间的相互转换。</p>
+
+<p>查看 <code>ogr2ogr</code> 支持哪些格式:</p>
+
+<pre><code>$ ogr2ogr --formats
+</code></pre>
+
+<p>将 Shapefile 格式的数据转换为 GMT 所需要的格式:</p>
+
+<pre><code>$ ogr2ogr -f GMT CHN_adm0.gmt CHN_adm0.shp
+</code></pre>
+
+<p>其中， <code>-f GMT</code> 表示将输入数据转换为 GMT 格式。</p>
+
+<h3 id=gdal-translate >gdal_translate</h3>
+
+<p><code>gdal_translate</code> 用于地理空间光栅数据格式之间的相互转换。</p>
+
+<p>查看 <code>gdal_translate</code> 支持哪些格式:</p>
+
+<pre><code>$ gdal_translate --formats
+</code></pre>
+
+<p>将 GeoTiff 数据转换为 GMT 所使用的 netCDF 格式:</p>
+
+<pre><code>$ gdal_translate -of GMT srtm_56_05.tif srtm_56_05.nc
+</code></pre>
+
+<div class="notices warning" ><p>GDAL 默认不支持 GMT 所需的 netCDF 格式，所以需要注意检查当前机器安装的 GDAL 是否支持。</p>
+</div>
+
+
+<h3 id=gdal-merge-py >gdal_merge.py</h3>
+
+<p><code>gdal_merge.py</code> 用于将合并多个光栅文件。</p>
+
+<p>将多个 GeoTiff 文件合并为一个 GeoTiff 文件:</p>
+
+<pre><code>$ gdal_merge.py -o output.tif srtm_56_07.tif srtm_57_07.tif
+</code></pre>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ul>
+<li><a href="http://www.gdal.org/" target=_blank >GDAL官方网站</a>
+<li><a href="http://www.gdal.org/gdal_utilities.html" target=_blank >GDAL工具列表</a>
+<li><a href="http://www.gdal.org/ogr_utilities.html" target=_blank >OGR工具列表</a>
+<li><a href="http://headfirst-gdal.readthedocs.io/en/latest/index.html" target=_blank >GDAL中文教程</a>
 </ul>
 
                             </div>
@@ -295,22 +277,15 @@ Region  1
     <ul class=pager >
         
         <li class=previous >
-            <a href="http://gmt-china.org/blog/numbering-subfigures/">
+            <a href="http://gmt-china.org/blog/unix-tools-for-windows/">
                 <strong class=article-nav-caption >
                 上一篇
                 </strong>
-                <div class=article-nav-title >为子图添加编号</div>
+                <div class=article-nav-title >Windows 下可用的 Unix 工具</div>
             </a>
         
         
 
-        
-        <li class=next >
-            <a href="http://gmt-china.org/blog/GMT-5.3.1-released/">
-                <strong class=article-nav-caption >下一篇</strong>
-                <div class=article-nav-title >GMT 5.3.1 发布</div>
-            </a>
-        
         
     </ul>
 </nav>
