@@ -61,17 +61,17 @@
 
 &lt;h3 id=&#34;windows-用户&#34;&gt;Windows 用户&lt;/h3&gt;
 
-&lt;p&gt;Windows 用户可以安装 &lt;a href=&#34;https://trac.osgeo.org/osgeo4w/&#34; target=&#34;_blank&#34;&gt;OSGeo4W&lt;/a&gt; 。使用方式步骤如下：&lt;/p&gt;
+&lt;p&gt;Windows 用户可以通过安装 &lt;a href=&#34;https://trac.osgeo.org/osgeo4w/&#34; target=&#34;_blank&#34;&gt;OSGeo4W&lt;/a&gt; 来使用其提供的 GDAL。安装及使用方式如下：&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;到官方网站下载 &lt;a href=&#34;http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86.exe&#34; target=&#34;_blank&#34;&gt;32位&lt;/a&gt; 或 &lt;a href=&#34;http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe&#34; target=&#34;_blank&#34;&gt;64位&lt;/a&gt; 安装包&lt;/li&gt;
+&lt;li&gt;到 OSGeo4W 官方网站下载 &lt;a href=&#34;http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86.exe&#34; target=&#34;_blank&#34;&gt;32位&lt;/a&gt; 或 &lt;a href=&#34;http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe&#34; target=&#34;_blank&#34;&gt;64位&lt;/a&gt; 安装包&lt;/li&gt;
 &lt;li&gt;双击=&amp;gt;“Express Desktop Install”=&amp;gt;选择下载地址=&amp;gt;只勾选GDAL=&amp;gt;等待下载安装完成（有经验的用户也可以选择“Advanced Install”以自定义安装）&lt;/li&gt;
 &lt;li&gt;安装完成会在桌面生成一个名为OSGeo4W的文件夹，双击文件夹内的快捷链接即可打开一个命令行窗口&lt;/li&gt;
 &lt;li&gt;命令行窗口中输入 &lt;code&gt;ogr2ogr --version&lt;/code&gt; 以确认可以正常使用&lt;/li&gt;
 &lt;li&gt;如果只是偶尔使用，建议按照如上方式运行；如果是经常使用，可以将 &lt;code&gt;C:\OSGeo4W64\bin&lt;/code&gt; 添加到 环境变量 PATH 中&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;如果由于某些原因无法使用 OSGeo4W，也可以尝试如下两个安装包：&lt;/p&gt;
+&lt;p&gt;如果由于某些原因无法使用 OSGeo4W，下面两个软件包中也附带了 GDAL 工具：&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.ms4w.com/&#34; target=&#34;_blank&#34;&gt;MS4W&lt;/a&gt;&lt;/li&gt;
